@@ -11,9 +11,16 @@ Stromzähler Kundenportal
 - **Unternehmen:** [Siemens AG]
 
 **Pascal Weider**
+
 - **Alter:** [20]
 - **Wohnort:** [Mannheim]
 - **Unternehmen:** [Siemens Healthcare GmbH]
+
+**Samuel Amoah**
+
+- **Alter:** [22]
+- **Wohnort:** [Ludwigshafen]
+- **Unternehmen:** [Siemens AG]
 
 **Yichen Zhang**
 
