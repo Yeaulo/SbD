@@ -9,3 +9,8 @@ Stromzähler Kundenportal
 - **Alter:** [21]
 - **Wohnort:** [Mannheim]
 - **Unternehmen:** [Siemens AG]
+
+**Pascal Weider**
+- **Alter:** [20]
+- **Wohnort:** [Mannheim]
+- **Unternehmen:** [Siemens Healthcare GmbH]
