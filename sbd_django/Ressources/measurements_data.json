@@ -1,0 +1,139 @@
+
+[
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 100,
+            "timestamp": "2023-01-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 75,
+            "timestamp": "2023-02-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 110,
+            "timestamp": "2023-03-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 80,
+            "timestamp": "2023-04-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 105,
+            "timestamp": "2023-05-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 70,
+            "timestamp": "2023-06-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 115,
+            "timestamp": "2023-07-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 85,
+            "timestamp": "2023-08-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 120,
+            "timestamp": "2023-09-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 90,
+            "timestamp": "2023-10-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 125,
+            "timestamp": "2023-11-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 95,
+            "timestamp": "2023-12-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 130,
+            "timestamp": "2024-01-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 100,
+            "timestamp": "2024-02-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 135,
+            "timestamp": "2024-03-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 2,
+            "value": 105,
+            "timestamp": "2024-04-01"
+        }
+    },
+    {
+        "model": "provider_portal.measurements",
+        "fields": {
+            "smartmeter_id": 1,
+            "value": 140,
+            "timestamp": "2024-05-01"
+        }
+    }
+]
