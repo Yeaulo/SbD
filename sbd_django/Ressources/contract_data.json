@@ -1,0 +1,39 @@
+
+[
+    {
+        "model": "provider_portal.contracts",
+        "fields": {
+            "price_per_month": 50,
+            "description": "Basic plan",
+            "minimum_term": 12,
+            "notice_period": 3
+        }
+    },
+    {
+        "model": "provider_portal.contracts",
+        "fields": {
+            "price_per_month": 80,
+            "description": "Premium plan",
+            "minimum_term": 24,
+            "notice_period": 6
+        }
+    },
+    {
+        "model": "provider_portal.contracts",
+        "fields": {
+            "price_per_month": 30,
+            "description": "Economy plan",
+            "minimum_term": 6,
+            "notice_period": 2
+        }
+    },
+    {
+        "model": "provider_portal.contracts",
+        "fields": {
+            "price_per_month": 120,
+            "description": "Family plan",
+            "minimum_term": 18,
+            "notice_period": 4
+        }
+    }
+]
