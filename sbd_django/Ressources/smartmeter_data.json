@@ -1,0 +1,68 @@
+[
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 1,
+            "contract": 1,
+            "contract_start": "2023-01-01",
+            "address": "123 Main St",
+            "house_numnber": 42,
+            "post_code": 12345
+        }
+    },
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 2,
+            "contract": 2,
+            "contract_start": "2023-02-01",
+            "address": "456 Elm St",
+            "house_numnber": 101,
+            "post_code": 54321
+        }
+    },
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 3,
+            "contract": 3,
+            "contract_start": "2023-03-01",
+            "address": "789 Oak St",
+            "house_numnber": 72,
+            "post_code": 98765
+        }
+    },
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 4,
+            "contract": 4,
+            "contract_start": "2023-04-01",
+            "address": "101 Pine St",
+            "house_numnber": 28,
+            "post_code": 45678
+        }
+    },
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 1,
+            "contract": 2,
+            "contract_start": "2023-05-01",
+            "address": "555 Maple St",
+            "house_numnber": 5,
+            "post_code": 33333
+        }
+    },
+    {
+        "model": "provider_portal.smartmeter",
+        "fields": {
+            "customer": 2,
+            "contract": 1,
+            "contract_start": "2023-06-01",
+            "address": "777 Oak St",
+            "house_numnber": 77,
+            "post_code": 88888
+        }
+    }
+]
