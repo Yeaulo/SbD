@@ -11,6 +11,16 @@ class Customers(models.Model):
     house_number = models.IntegerField()
     post_code = models.IntegerField()
 
+    def toJson(self):
+        return {
+            "customer_id": self.customer_id,
+            "last_name": self.last_name,
+            "first_name": self.first_name,
+            "addresss": self.addresss,
+            "house_number": self.house_number,
+            "post_code": self.post_code,
+        }
+
 class Contracts(models.Model):
     contract_id = models.AutoField(max_length=10, primary_key=True)
     price_per_month = models.IntegerField()
@@ -26,6 +36,7 @@ class Smartmeter(models.Model):
     address = models.CharField(max_length=200)
     house_numnber = models.IntegerField()
     post_code = models.IntegerField()
+
 
 
 class Measurements(models.Model):
