@@ -3,6 +3,7 @@
     width: 30%;
     height: 70%;
     position: relative;
+    font-size: bold;
 }
 
 .heading-user-data{
@@ -35,6 +36,7 @@
 input{
     border: 2px solid #D9D9D9;
     border-radius: 5px;
+    width: 70%;
 }
 
 
@@ -65,7 +67,7 @@ input{
     pointer-events: none;
 }
 
-.cancel-button{
+.reset-button{
     background-color: #D91515;
 }
 

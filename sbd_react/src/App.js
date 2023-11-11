@@ -1,37 +1,30 @@
-import React, {useState} from 'react'
-// import LoginField from './components/login/loginField'
-// import RegisterField from './components/login/registerField'
+import React, {useState, useEffect} from 'react'
+import LoginField from './components/login/loginField'
+import RegisterField from './components/login/registerField'
 import UserData from './components/UserData/UserData'
+import Navbar from './components/Navbar'
+import {Route, Routes} from "react-router-dom"
 
 
 function App (){
-  const [showPage, setShowPage] = useState('testing')
-  function changePage(page){
-    console.log(page)
-    setShowPage(page)
-  }
+  const [showNavbar, setShowNavbar] = useState(false);
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    setShowNavbar(currentPath !== '/login' && currentPath !== '/register');
+  }, []);
   
-  // if (showPage === 'login') {
-  //   return (
-  //     <div className="App" style={{ width: '100%', height: '100vh' }}>
-  //       <LoginField onChangeToRegister={() => changePage('register')} />
-  //     </div>
-  //   )
-  // }else if (showPage === 'register') {
-  //     return (
-  //       <div className="App" style={{ width: '100%', height: '100vh' }}>
-  //         <RegisterField onChangeToLogin={() => changePage('login')}/>
-  //       </div>
-  //     )
-  // }
   return (
-      <div className="App" style={{ width: '100%', height: '100vh' }}>
-        <UserData/>
-      </div>
-    )
-  
+    <div className="App" style={{ width: '100%', height: '100vh' }}>
+      {showNavbar && <Navbar />}
 
-    
+      <Routes>
+        <Route path="/login" element={<LoginField/>}/>
+        <Route path="/register" element={<RegisterField/>}/>
+        <Route path="/customerData" element={<UserData/>}/>
+      </Routes>
+    </div>
+ 
+    )
   }
 
 

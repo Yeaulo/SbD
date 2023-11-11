@@ -76,7 +76,7 @@ export default function UserData(){
                 <InputUserData showName="postcode" propertyName= {"post_code"} value={userData.post_code} onChange={handleChange} disabled={isLoading}/>
                
                 <div className="customer-data-button-div">
-                        <button className="customer-data-button cancel-button" onClick={resetInput} disabled={disableButtons}>Cancel</button>
+                        <button className="customer-data-button reset-button" onClick={resetInput} disabled={disableButtons}>Reset</button>
                         <button className="customer-data-button submit-button" onClick={submitNewInput} disabled= {disableButtons}>Submit</button>
                 </div>     
 
