@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/login/register.css'
 
-function Register({onChangeToLogin}) {
+export default function RegisterField({onChangeToLogin}) {
   const [credentials, setCredentials] = useState({
     first_name: '',
     last_name: '',
@@ -69,4 +69,3 @@ function Register({onChangeToLogin}) {
   );
 }
 
-export default Register;

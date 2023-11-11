@@ -3,3 +3,5 @@ __pycache__/
 
 # Ignoriere .pyc-Dateien
 *.pyc
+sbd_django/sbd_django/__pycache__/urls.cpython-310.pyc
+*.pyc
