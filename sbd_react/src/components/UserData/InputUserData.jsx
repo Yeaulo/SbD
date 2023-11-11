@@ -1,8 +1,8 @@
-export default function InputUserData({propertyName, value, onChange}){
+export default function InputUserData({showName, propertyName, value, onChange, isLoading}){
     return (
         <div>
-            {propertyName}
-            <input type="text" value={value} onChange={onChange}/>
+            {showName}
+            <input type="text" name={propertyName} value={value} onChange={onChange} disabled={isLoading}/>
         </div>
     )
 }
