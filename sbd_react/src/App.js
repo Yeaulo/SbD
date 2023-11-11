@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+import React, {useState} from 'react'
+import Login from './components/login/login'
+import Register from './components/login/registrierung'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+function App (){
+  const [showPage, setShowPage] = useState('login')
+  function changePage(page){
+    console.log(page)
+    setShowPage(page)
+  }
+  if (showPage === 'login') {
+    return (
+      <div className="App" style={{ width: '100%', height: '100vh' }}>
+        <Login onChangeToRegister={() => changePage('register')} />
+      </div>
+    )
+  }else if (showPage === 'register') {
+      return (
+        <div className="App" style={{ width: '100%', height: '100vh' }}>
+          <Register onChangeToLogin={() => changePage('login')}/>
+        </div>
+      )
+    }
+
+    
+  }
+
+
+
+export default App
