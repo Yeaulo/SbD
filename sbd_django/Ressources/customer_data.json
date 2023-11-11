@@ -4,7 +4,7 @@
         "fields": {
             "last_name": "Doe",
             "first_name": "John",
-            "addresss": "123 Main St",
+            "adress": "123 Main St",
             "house_number": 42,
             "post_code": 12345
         }
@@ -14,7 +14,7 @@
         "fields": {
             "last_name": "Smith",
             "first_name": "Jane",
-            "addresss": "456 Elm St",
+            "adress": "456 Elm St",
             "house_number": 101,
             "post_code": 54321
         }
@@ -24,7 +24,7 @@
         "fields": {
             "last_name": "Johnson",
             "first_name": "Bob",
-            "addresss": "789 Oak St",
+            "adress": "789 Oak St",
             "house_number": 72,
             "post_code": 98765
         }
@@ -34,7 +34,7 @@
         "fields": {
             "last_name": "Williams",
             "first_name": "Emily",
-            "addresss": "101 Pine St",
+            "adress": "101 Pine St",
             "house_number": 28,
             "post_code": 45678
         }
