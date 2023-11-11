@@ -1,27 +1,35 @@
 import React, {useState} from 'react'
-import Login from './components/login/login'
-import Register from './components/login/registrierung'
+// import LoginField from './components/login/loginField'
+// import RegisterField from './components/login/registerField'
+import UserData from './components/UserData/UserData'
 
 
 function App (){
-  const [showPage, setShowPage] = useState('login')
+  const [showPage, setShowPage] = useState('testing')
   function changePage(page){
     console.log(page)
     setShowPage(page)
   }
-  if (showPage === 'login') {
-    return (
+  
+  // if (showPage === 'login') {
+  //   return (
+  //     <div className="App" style={{ width: '100%', height: '100vh' }}>
+  //       <LoginField onChangeToRegister={() => changePage('register')} />
+  //     </div>
+  //   )
+  // }else if (showPage === 'register') {
+  //     return (
+  //       <div className="App" style={{ width: '100%', height: '100vh' }}>
+  //         <RegisterField onChangeToLogin={() => changePage('login')}/>
+  //       </div>
+  //     )
+  // }
+  return (
       <div className="App" style={{ width: '100%', height: '100vh' }}>
-        <Login onChangeToRegister={() => changePage('register')} />
+        <UserData/>
       </div>
     )
-  }else if (showPage === 'register') {
-      return (
-        <div className="App" style={{ width: '100%', height: '100vh' }}>
-          <Register onChangeToLogin={() => changePage('login')}/>
-        </div>
-      )
-    }
+  
 
     
   }

@@ -1,9 +1,14 @@
 import {React,  useState, useEffect} from "react"
 import InputUserData from "./InputUserData"
+import '../../styles/UserData/userdata.css'
+
+let initialUserData;
+const _ = require('lodash'); //used to compare objects
 
 export default function UserData(){
     const [userData, setUserData] = useState({ });
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -12,7 +17,7 @@ export default function UserData(){
                 const response = await fetch('http://localhost:8000/api/customerData/');
                 const data = await response.json();
                 setUserData(data.data);
-
+                initialUserData = { ...data.data };
             } catch (error) {
                 console.error('Fetch error:', error);
             }
@@ -20,8 +25,6 @@ export default function UserData(){
         fetchData();
         setIsLoading(false);
     }, []); 
-
-    console.log(userData)
 
     function handleChange(e){
         const {name, value} = e.target;
@@ -31,9 +34,39 @@ export default function UserData(){
         }));
     }
 
+    function resetInput(){
+        setUserData(initialUserData);
+    }
+
+    function submitNewInput(){
+        const postData = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/customerData/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+                if (response.status === 201){
+                    console.log("Data updated successfully");
+                }else if(response.status === 401){
+                    console.log("Unauthorized");
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        };
+        postData();
+        initialUserData = { ...userData };
+    }
+
+    const showButtons = !_.isEqual(initialUserData, userData)
     return (
         <div className="outer-user-data"> 
-            Nutzerdaten
+            <div className="heading-user-data">
+                Nutzerdaten bearbeiten
+            </div>
             <div className="inner-user-data">
                 <InputUserData showName="firstname" propertyName={"first_name"} value={userData.first_name} onChange={handleChange} disabled={isLoading}/>
                 <InputUserData showName="lastname" propertyName= {"last_name"} value={userData.last_name} onChange={handleChange} disabled={isLoading}/>
@@ -41,7 +74,14 @@ export default function UserData(){
                 <InputUserData showName="adress" propertyName= {"adress"} value={userData.adress} onChange={handleChange} disabled={isLoading}/>
                 <InputUserData showName="housenumber" propertyName= {"house_number"} value={userData.house_number} onChange={handleChange} disabled={isLoading}/>
                 <InputUserData showName="postcode" propertyName= {"post_code"} value={userData.post_code} onChange={handleChange} disabled={isLoading}/>
+                {showButtons ?
+                <div className="customer-data-button-div">
+                        <button className="customer-data-button cancel-button" onClick={resetInput}>Cancel</button>
+                        <button className="customer-data-button submit-button" onClick={submitNewInput}>Submit</button>
+                </div>     
+                        : null}
             </div>
         </div>
+ 
     )
 }

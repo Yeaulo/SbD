@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/login/login.css'
 
-function Login({onChangeToRegister}) {
+export default function LoginField({onChangeToRegister}) {
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
@@ -41,11 +41,10 @@ function Login({onChangeToRegister}) {
           </div> */}
           <button className="submit-button" onClick={onSubmitLogin}>Bestätigen</button>
           <div>
-          <button className="submit-button" onClick={onSubmitRegister}>Regiestrirung</button>
+          <button className="submit-button" onClick={onSubmitRegister}>Registrierung</button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
