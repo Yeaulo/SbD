@@ -55,6 +55,15 @@ input{
     height: 100%;
     margin:10px
 }
+.customer-data-button:active {
+    transform: scale(0.98);
+}
+
+.customer-data-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 .cancel-button{
     background-color: #D91515;

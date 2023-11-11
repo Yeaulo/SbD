@@ -61,7 +61,7 @@ export default function UserData(){
         initialUserData = { ...userData };
     }
 
-    const showButtons = !_.isEqual(initialUserData, userData)
+    const disableButtons = _.isEqual(initialUserData, userData)
     return (
         <div className="outer-user-data"> 
             <div className="heading-user-data">
@@ -74,12 +74,12 @@ export default function UserData(){
                 <InputUserData showName="adress" propertyName= {"adress"} value={userData.adress} onChange={handleChange} disabled={isLoading}/>
                 <InputUserData showName="housenumber" propertyName= {"house_number"} value={userData.house_number} onChange={handleChange} disabled={isLoading}/>
                 <InputUserData showName="postcode" propertyName= {"post_code"} value={userData.post_code} onChange={handleChange} disabled={isLoading}/>
-                {showButtons ?
+               
                 <div className="customer-data-button-div">
-                        <button className="customer-data-button cancel-button" onClick={resetInput}>Cancel</button>
-                        <button className="customer-data-button submit-button" onClick={submitNewInput}>Submit</button>
+                        <button className="customer-data-button cancel-button" onClick={resetInput} disabled={disableButtons}>Cancel</button>
+                        <button className="customer-data-button submit-button" onClick={submitNewInput} disabled= {disableButtons}>Submit</button>
                 </div>     
-                        : null}
+
             </div>
         </div>
  
