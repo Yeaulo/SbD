@@ -32,7 +32,7 @@ class CustomersView(APIView):
         customer_data = Customers.objects.get(customer_id=2)
         return Response({"data": customer_data.toJson()})
 
-    def put(self,request):
+    def post(self,request):
         data =  request.data 
         last_name = data.get("last_name", None)
         first_name = data.get("first_name", None)
@@ -43,10 +43,15 @@ class CustomersView(APIView):
         customerData = Customers.objects.get(customer_id=2)
 
         if not last_name or  not first_name or not adress or not house_number or not post_code:
-            return Response({"error": "All values must be filled"}, status=400)         
+            return Response({"error": "All values must be filled"}, status=401)         
 
+        customerData.last_name = last_name
+        customerData.first_name = first_name
+        customerData.adress = adress
+        customerData.house_number = house_number
+        customerData.post_code = post_code
         customerData.save()
 
 
-        return Response({"message": "Customer data has been updated successfully."})
+        return Response({"message": "Customer data has been updated successfully."}, status=201)
     
