@@ -25,10 +25,6 @@
     color: inherit;
 }
 
-/* .site-title:hover {
-    font-size: 2rem;
-    
-} */
 
 .nav-item{
     text-decoration: none;
@@ -41,6 +37,7 @@
 }
 
 .active-nav-item{
-    color: #808080;
+    color: blue;
     text-decoration: none;
 }
+

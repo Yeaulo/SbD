@@ -30,7 +30,7 @@
     text-align: left;
 
     background: none;
-    color: inherit;
+    color: blue;
     border: none;
     padding: 5px;
     margin: 0;
@@ -39,4 +39,5 @@
 }
 .dropdown>button{
     font: inherit;
+    color: blue;
 }
