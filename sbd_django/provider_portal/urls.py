@@ -5,6 +5,6 @@ from .views import CustomersView
 urlpatterns = [
     path("customerData/", CustomersView.as_view(),),
     path("smartmeter/", views.getSmartMeter),
-    path("contractData/", views.getContractData),
+    path("contractData/<smartmeter_id>/", views.getContractData),
     path("measurements/", views.getMeasurements),
 ]

@@ -63,23 +63,25 @@ export default function UserData(){
 
     const disableButtons = _.isEqual(initialUserData, userData)
     return (
-        <div className="outer-user-data"> 
-            <div className="heading-user-data">
-                Nutzerdaten bearbeiten
-            </div>
-            <div className="inner-user-data">
-                <InputUserData showName="firstname" propertyName={"first_name"} value={userData.first_name} onChange={handleChange} disabled={isLoading}/>
-                <InputUserData showName="lastname" propertyName= {"last_name"} value={userData.last_name} onChange={handleChange} disabled={isLoading}/>
-                <InputUserData showName="e-mail" propertyName= {"email"} value={userData.email} onChange={handleChange} disabled={isLoading}/>
-                <InputUserData showName="adress" propertyName= {"adress"} value={userData.adress} onChange={handleChange} disabled={isLoading}/>
-                <InputUserData showName="housenumber" propertyName= {"house_number"} value={userData.house_number} onChange={handleChange} disabled={isLoading}/>
-                <InputUserData showName="postcode" propertyName= {"post_code"} value={userData.post_code} onChange={handleChange} disabled={isLoading}/>
-               
-                <div className="customer-data-button-div">
-                        <button className="customer-data-button reset-button" onClick={resetInput} disabled={disableButtons}>Reset</button>
-                        <button className="customer-data-button submit-button" onClick={submitNewInput} disabled= {disableButtons}>Submit</button>
-                </div>     
+        <div className="user-data">
+            <div className="outer-user-data"> 
+                <div className="heading-user-data">
+                    Customer data
+                </div>
+                <div className="inner-user-data">
+                    <InputUserData showName="firstname" propertyName={"first_name"} value={userData.first_name} onChange={handleChange} disabled={isLoading}/>
+                    <InputUserData showName="lastname" propertyName= {"last_name"} value={userData.last_name} onChange={handleChange} disabled={isLoading}/>
+                    <InputUserData showName="e-mail" propertyName= {"email"} value={userData.email} onChange={handleChange} disabled={isLoading}/>
+                    <InputUserData showName="adress" propertyName= {"adress"} value={userData.adress} onChange={handleChange} disabled={isLoading}/>
+                    <InputUserData showName="housenumber" propertyName= {"house_number"} value={userData.house_number} onChange={handleChange} disabled={isLoading}/>
+                    <InputUserData showName="postcode" propertyName= {"post_code"} value={userData.post_code} onChange={handleChange} disabled={isLoading}/>
+                
+                    <div className="customer-data-button-div">
+                            <button className="customer-data-button reset-button" onClick={resetInput} disabled={disableButtons}>Reset</button>
+                            <button className="customer-data-button submit-button" onClick={submitNewInput} disabled= {disableButtons}>Submit</button>
+                    </div>     
 
+                </div>
             </div>
         </div>
  
