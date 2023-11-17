@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from .models import *;
-import json;
+from .models import *
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 #Create: Customers.objects.create(last_name="Bene", first_name="Geba", addresss="Augarten", house_number=112, post_code=68165)
 #Alle Daten: Customers.objects.all().values()
@@ -15,11 +16,20 @@ def getSmartMeter(request):
     smartmeter = Smartmeter.objects.filter(customer_id=1).values()
     return Response({"data": smartmeter})
 
+#TODO Auch nach Customer id filtern
 @api_view(["GET"])
-def getContractData(request):
-    smartmeter = Smartmeter.objects.get(smartmeter_id=2)
+def getContractData(request, smartmeter_id):
+    smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
     contract_data = Contracts.objects.get(contract_id=smartmeter.contract_id)
-    return Response({"data": contract_data.toJson()})
+    contract_data_json =  contract_data.toJson()
+    contract_data_json["contract_start"] = smartmeter.contract_start
+
+    min_end_date = smartmeter.contract_start + relativedelta(months=contract_data.minimum_term)
+    if min_end_date < datetime.now().date():
+        min_end_date = datetime.now().date() + relativedelta(months=contract_data.minimum_term)
+
+    contract_data_json["contract_end"] = min_end_date
+    return Response({"data": contract_data_json})
 
 @api_view(["GET"])
 def getMeasurements(request):
