@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import LoginField from './components/login/loginField'
-import RegisterField from './components/login/registerField'
 import UserData from './components/UserData/UserData'
 import Navbar from './components/Navbar'
 import Contracts from './components/Contracts/ContractData'
@@ -21,7 +20,6 @@ function App (){
       <Routes>
 
         <Route path="/login" element={<LoginField/>}/>
-        <Route path="/register" element={<RegisterField/>}/>
         <Route path="/customerData" element={<UserData/>}/>
         <Route path="/contracts" element={<Contracts/>}/>
       </Routes>
