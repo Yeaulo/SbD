@@ -9,15 +9,17 @@
     height: 100%;
     width: 100%;
     margin: 0;
+    position: absolute;
+    text-align: center;
 }
 
 .login-container {
     position: absolute;
-    right: 10%;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
     width: 300px;
-    height: 400px; /* Erhöhte Höhe */
+    height: 300px; /* Erhöhte Höhe */
     padding: 20px 40px;
     border-radius: 10px;
     background-color: rgba(242, 242, 242, 0.9); /* Hellgrau & Transparenz */

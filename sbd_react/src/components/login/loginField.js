@@ -40,9 +40,6 @@ export default function LoginField({onChangeToRegister}) {
             <input  className="login-input" type="text" id="sessionId" name="sessionId" placeholder="SESSIONID" value={credentials.sessionId} onChange={handleChange} required />
           </div> */}
           <button className="submit-button" onClick={onSubmitLogin}>Bestätigen</button>
-          <div>
-          <button className="submit-button" onClick={onSubmitRegister}>Registrierung</button>
-        </div>
       </div>
     </div>
   );
