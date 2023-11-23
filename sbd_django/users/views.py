@@ -20,11 +20,8 @@ class LoginView(APIView):
 
         user = User.objects.filter(email=email).first()
 
-        if user is None:
-            raise AuthenticationFailed('User not found!')
-
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
+        if user is None or not user.check_password(password):
+            raise AuthenticationFailed('Login Failed')
 
         payload = {
             'id': user.id,
