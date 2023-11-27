@@ -112,3 +112,9 @@
     margin-top: 49%;
     
 }
+.smartmeter-header-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 1%;
+    text-align: left; 
+}
