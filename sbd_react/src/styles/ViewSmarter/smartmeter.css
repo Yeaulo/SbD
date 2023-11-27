@@ -118,3 +118,22 @@
     margin-left: 1%;
     text-align: left; 
 }
+.smartmeter-value-text {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 1%;
+    text-align: center;
+    
+     
+}
+
+.vertical-line {
+    position: absolute;
+    width: 0.4%; /* Breite des vertikalen Strichs */
+    height: 70%; /* Höhe des vertikalen Strichs */
+    background-color: #000; /* Farbe des vertikalen Strichs */
+    content: '';
+    display: inline-block;
+    /* margin-top: 1.7%; */
+  }
+  

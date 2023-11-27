@@ -41,7 +41,7 @@ const Table = ({valuelist}) => {
             <td style={tdStyle}>{firstColumnValues[2]}</td>
             {valuelist.map((item, index) => (
                 <td key={index} style={tdStyle}>
-                {item.value*cost[index]}
+                {item.value === '-' ? '-' : item.value * cost[index]}
                 </td>
             ))}</tr>
       </tbody>

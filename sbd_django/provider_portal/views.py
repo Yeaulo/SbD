@@ -20,6 +20,19 @@ def getSmartMeter(request):
 
 
 @api_view(["GET"])
+def getSmartMeterById(request, smartmeter_id):
+    smartmeter = Smartmeter.objects.filter(
+        smartmeter_id=smartmeter_id).values()
+    return Response({"data": smartmeter})
+
+
+@api_view(["GET"])
+def getSmarterAll(request):
+    smartmeter = Smartmeter.objects.all().values()
+    return Response({"data": smartmeter})
+
+
+@api_view(["GET"])
 def getContractData(request, smartmeter_id):
     smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
     contract_data = Contracts.objects.get(contract_id=smartmeter.contract_id)
@@ -36,8 +49,10 @@ def getContractData(request, smartmeter_id):
 
 
 @api_view(["GET"])
-def getMeasurements(request):
-    measurements = Measurements.objects.filter(smartmeter_id=2).values()
+def getMeasurements(request, smartmeter_id):
+    # smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
+    measurements = Measurements.objects.filter(
+        smartmeter_id=smartmeter_id).values()
     return Response({"data": measurements})
 
 
@@ -49,7 +64,7 @@ def getMeasurementsByDate(request, date):
 
 
 @api_view(["GET"])
-def getMeasurementsValues(request):
+def getMeasurementsValues(request, smartmeter_id):
     measurements = Measurements.objects.filter(smartmeter_id=2).values("value")
     return Response({"data": measurements})
 
