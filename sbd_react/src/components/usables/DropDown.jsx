@@ -12,15 +12,14 @@ export default function DropDown({ items, onChangeSelection, selectedId }) {
     onChangeSelection(index);
     setOpen(false);
   }
-
   return (
     <div className="dropdown">
       <button onClick={handleOpen}>
-        {items.length != 0
+        {items.length !== 0
           ? items.filter((item) => item.id === selectedId)[0].name
           : "Smartmeter"}
       </button>
-      {open && items.length != 0 ? (
+      {open && items.length !== 0 ? (
         <ul className="menu">
           {items.map((item, index) => {
             return (

@@ -47,7 +47,6 @@ export default function Contracts() {
           "http://localhost:8000/api/contractData/" + smartmeter_id + "/"
         );
         const data = await response.json();
-
         setContractData(data.data);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -57,7 +56,7 @@ export default function Contracts() {
 
     setIsLoading(false);
   }
-  console.log(contractData);
+
   return (
     <div className="contracts">
       <div className="outer-contracts">

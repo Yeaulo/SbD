@@ -42,7 +42,7 @@ class Smartmeter(models.Model):
     contract = models.ForeignKey(Contracts, on_delete=models.CASCADE)
     contract_start = models.DateField()
     address = models.CharField(max_length=200)
-    house_numnber = models.IntegerField()
+    house_number = models.IntegerField()
     post_code = models.IntegerField()
 
 class Measurements(models.Model):

@@ -6,7 +6,7 @@
             "contract": 1,
             "contract_start": "2023-01-01",
             "address": "123 Main St",
-            "house_numnber": 42,
+            "house_number": 42,
             "post_code": 12345
         }
     },
@@ -17,7 +17,7 @@
             "contract": 2,
             "contract_start": "2023-02-01",
             "address": "456 Elm St",
-            "house_numnber": 101,
+            "house_number": 101,
             "post_code": 54321
         }
     },
@@ -28,7 +28,7 @@
             "contract": 3,
             "contract_start": "2023-03-01",
             "address": "789 Oak St",
-            "house_numnber": 72,
+            "house_number": 72,
             "post_code": 98765
         }
     },
@@ -39,7 +39,7 @@
             "contract": 4,
             "contract_start": "2023-04-01",
             "address": "101 Pine St",
-            "house_numnber": 28,
+            "house_number": 28,
             "post_code": 45678
         }
     },
@@ -50,7 +50,7 @@
             "contract": 2,
             "contract_start": "2023-05-01",
             "address": "555 Maple St",
-            "house_numnber": 5,
+            "house_number": 5,
             "post_code": 33333
         }
     },
@@ -61,7 +61,7 @@
             "contract": 1,
             "contract_start": "2023-06-01",
             "address": "777 Oak St",
-            "house_numnber": 77,
+            "house_number": 77,
             "post_code": 88888
         }
     }
