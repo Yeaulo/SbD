@@ -47,6 +47,6 @@ class Smartmeter(models.Model):
 
 class Measurements(models.Model):
     measurement_id = models.AutoField(max_length=10, primary_key=True)
-    smartmeter_id = models.ForeignKey(Smartmeter, on_delete=models.CASCADE)
+    smartmeter = models.ForeignKey(Smartmeter, on_delete=models.CASCADE)
     value = models.IntegerField()
     timestamp = models.DateField()
