@@ -123,51 +123,52 @@ export default function ViewSmartmeter() {
     return (
         <div className="smartmeter-container">
             <div className="smartmeter-outer-left">
+              <div className="smartmeter-inner-top">
                 <div className="smartmeter-inner-left_top_left">
-                    <p className="smartmeter-header-text">Verbrauch in diesem Monat</p>
+                    <p className="smartmeter-header-text-center">Verbrauch in diesem Monat</p>
                     <p className="smartmeter-value-text">{lastvalue} kwh / 10.69€</p>
                 </div>
                 <div className="smartmeter-inner-left_top_right">
-                    <p className="smartmeter-header-text">Durchschnittlicher Verbrauch</p>
+                    <p className="smartmeter-header-text-center">Durchschnittlicher Verbrauch</p>
                     <p className="smartmeter-value-text">{avarge} kwh / 10.69€</p>
                 </div>
+              </div>
                 <div className="smartmeter-inner-left_middle">
                     <p className="smartmeter-header-text">Verbrauchsübersicht</p>
                     <Table valuelist={valuelist} />
                 </div>
                 <div className="smartmeter-inner-left_bottom">
-                    <div className="smartmeter-header-text">Vertragsdaten:
-                    <div style={{display: "flex", justifyContent: "space between", gap: "30%", marginTop: "1%"}}>
+                    <div className="smartmeter-contract-data">Vertragsdaten:
+                    <div style={{display: "flex", justifyContent: "space between", gap: "30%"}}>
                       <div className="group1">
-                    <div className="smartmeter-header-text">Vertragsname: {contractData.description}</div>
-                    <div className="smartmeter-header-text">Preis: {contractData.price_per_month}€ pro kwh</div>
+                    <div className="smartmeter-contract-data-properties">Vertragsname: {contractData.description}</div>
+                    <div className="smartmeter-contract-data-properties">Preis: {contractData.price_per_month}€ pro kwh</div>
                     </div>
                     <div className="group2">
-                    <div className="smartmeter-header-text" >Mindestlaufzeit: {contractData.minimum_term}</div>
-                    <div className="smartmeter-header-text" >Kündigungsfrist: {contractData.notice_period}</div>
+                    <div className="smartmeter-contract-data-properties" >Mindestlaufzeit: {contractData.minimum_term}</div>
+                    <div className="smartmeter-contract-data-properties" >Kündigungsfrist: {contractData.notice_period}</div>
                     </div>
                     </div>
                     </div>
                 </div>
             </div>
             <div className="smartmeter-outer-right">
-                <div className="smartmeter-header-text">
+                <div className="smartmeter-electricity-data">
                     <div className="smartmeter-heading-right-title">Stromzählerinformationen</div>
-                    <div style={{ display: "flex", justifyContent: "flex-end"}}>
-                    <DropDown
-            items={smartmeter}
-            onChangeSelection={onSelectedSmartMeterChange}
-            selectedId={selectedSmartmeterId}
-          /></div>
                 </div>
                 <div className="smartmeter-inner-right">
-                    <p className="smartmeter-header-text">Zählerstand: {lastvalue}</p>
-                    <p className="smartmeter-header-text">Zählernummer: {smartmeter_id} </p>
-                    <p className="smartmeter-header-text">Zählbeginn: {start} </p>
-                    <hr style={{ borderWidth: "0%", borderColor: "black" }}></hr>
-                    <p className="smartmeter-header-text">Stromzählerstandort</p>
-                    <p className="smartmeter-header-text">Straße/Nr: {address} {house_number}</p>
-                    <p className="smartmeter-header-text">PLZ/ORT: {post_code}</p>
+                  <div className="smartmeter-data-container">
+                      <p className="smartmeter-data-text">Zählerstand: {lastvalue}</p>
+                      <p className="smartmeter-data-text">Zählernummer: {smartmeter_id} </p>
+                      <p className="smartmeter-data-text">Zählbeginn: {start} </p>
+                      <div style={{borderWidth: "2px" , height: "2px",  backgroundColor : "black"}}></div>
+                      <p className="smartmeter-data-text">Stromzählerstandort</p>
+                      <p className="smartmeter-data-text">Straße/Nr: {address} {house_number}</p>
+                      <p className="smartmeter-data-text">PLZ/ORT: {post_code}</p>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: "6%"}}>
+                    <DropDown items={smartmeter} onChangeSelection={onSelectedSmartMeterChange} selectedId={selectedSmartmeterId} />
+                  </div>
                 </div>
             </div>
         </div>

@@ -8,44 +8,46 @@ const Table = ({valuelist}) => {
   const firstColumnValues = ['2023', 'Verbrauch', 'Kosten(Euro)'];
 
   return (
-    <table style={{ borderCollapse: 'collapse', width: '100%', height: '65%', marginTop:'5%' }}>
-      <thead>
-        <tr>
-          <th style={thStyle}>{firstColumnValues[0]}</th>
-          {months.map((month, index) => (
-            <th key={index} style={thMonthStyle}>
-              {month}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {/* {firstColumnValues.slice(1).map((value, index) => (
-          <tr key={index}>
-            <td style={tdStyle}>{value}</td>
-            {Array.from({ length: 12 }, (_, colIndex) => (
-              <td key={colIndex} style={tdStyle}>
-                Wert {index + 1}-{colIndex + 1}
-              </td>
+    <div style={{width: '100%', height: '70%', overflowY: "auto"}}>
+      <table style={{ borderCollapse: 'collapse', width: '100%', height: '100%', marginTop:'0%' }}>
+        <thead>
+          <tr>
+            <th style={thStyle}>{firstColumnValues[0]}</th>
+            {months.map((month, index) => (
+              <th key={index} style={thMonthStyle}>
+                {month}
+              </th>
             ))}
           </tr>
-        ))} */}
-        <tr>
-          <td style={tdStyle}>{firstColumnValues[1]}</td>
-          {valuelist.map((item, index) => (
-            <td key={index} style={tdStyle}>
-              {item.value}
-            </td>
-          ))}</tr>
-        <tr>
-            <td style={tdStyle}>{firstColumnValues[2]}</td>
-            {valuelist.map((item, index) => (
-                <td key={index} style={tdStyle}>
-                {item.value === '-' ? '-' : item.value * cost[index]}
+        </thead>
+        <tbody>
+          {/* {firstColumnValues.slice(1).map((value, index) => (
+            <tr key={index}>
+              <td style={tdStyle}>{value}</td>
+              {Array.from({ length: 12 }, (_, colIndex) => (
+                <td key={colIndex} style={tdStyle}>
+                  Wert {index + 1}-{colIndex + 1}
                 </td>
+              ))}
+            </tr>
+          ))} */}
+          <tr>
+            <td style={tdStyle}>{firstColumnValues[1]}</td>
+            {valuelist.map((item, index) => (
+              <td key={index} style={tdStyle}>
+                {item.value}
+              </td>
             ))}</tr>
-      </tbody>
-    </table>
+          <tr>
+              <td style={tdStyle}>{firstColumnValues[2]}</td>
+              {valuelist.map((item, index) => (
+                  <td key={index} style={tdStyle}>
+                  {item.value === '-' ? '-' : item.value * cost[index]}
+                  </td>
+              ))}</tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
