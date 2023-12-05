@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
+from provider_portal.models import Customers
+
 import jwt
 import datetime
 
@@ -12,7 +14,9 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        instance = serializer.save()
+        
+        Customers.objects.create(customer_id = serializer.data.get('id', None),first_name=request.data.get('first_name', None), last_name=request.data.get('last_name', None), adress=request.data.get('adress', None), house_number=request.data.get('house_number', None), post_code=request.data.get('post_code', None))
         return Response(serializer.data)
 
 
