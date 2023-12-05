@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
-import jwt, datetime
+import jwt
+import datetime
 
 JWT_SECRET = "r3FIem8T67NVumSmD7IrdrC042YTrPAugLZJsucI80GLH0mHWkHmahHZKhc3jON_cu5aHMaIRM3u04svAv11QQ"
 
@@ -13,6 +14,7 @@ class RegisterView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -44,6 +46,7 @@ class LoginView(APIView):
 
         return response
 
+
 class UserView(APIView):
 
     def get(self, request):
@@ -53,8 +56,13 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
+<<<<<<< HEAD
             payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
         
+=======
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+
+>>>>>>> main
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
@@ -62,6 +70,7 @@ class UserView(APIView):
         serializer = UserSerializer(user)
 
         return Response(serializer.data)
+
 
 class LogoutView(APIView):
     def post(self, request):

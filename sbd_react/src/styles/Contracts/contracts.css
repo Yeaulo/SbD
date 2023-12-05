@@ -13,6 +13,7 @@
     position: relative;
     font-size: bold;
     border-radius: 4px;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.034);
 }
 
 .heading-contracts {
@@ -23,6 +24,11 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
+}
+
+.heading-contracts-title{
+    font-weight : bold;
+    font-size: calc(0.6vw + 1.5vh);
 }
 
 .inner-contracts {
@@ -36,6 +42,7 @@
     margin-right: 5%;
     margin-bottom: 5%;
     margin-top: 10%;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.034);
 }
 
 .property-row{
@@ -43,5 +50,5 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.8em;
+    font-size:calc(0.4vw + 1.3vh);
 }

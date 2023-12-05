@@ -4,6 +4,8 @@ import UserData from './components/UserData/UserData'
 import Navbar from './components/Navbar'
 import Contracts from './components/Contracts/ContractData'
 import {Route, Routes} from "react-router-dom"
+import ViewSmartmeter from './components/ViewSmartmeter/ViewSmartmeter'
+
 
 
 function App (){
@@ -22,6 +24,7 @@ function App (){
         <Route path="/login" element={<LoginField/>}/>
         <Route path="/customerData" element={<UserData/>}/>
         <Route path="/contracts" element={<Contracts/>}/>
+        <Route path="/smartmeter" element={<ViewSmartmeter/>}/>
       </Routes>
     </div>
  
