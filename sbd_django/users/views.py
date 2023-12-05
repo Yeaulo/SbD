@@ -6,6 +6,7 @@ from .models import User
 import jwt
 import datetime
 
+JWT_SECRET = "r3FIem8T67NVumSmD7IrdrC042YTrPAugLZJsucI80GLH0mHWkHmahHZKhc3jON_cu5aHMaIRM3u04svAv11QQ"
 
 class RegisterView(APIView):
     def post(self, request):
@@ -55,8 +56,8 @@ class UserView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-
+            payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
+        
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
