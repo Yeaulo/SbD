@@ -4,6 +4,10 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
 from provider_portal.models import Customers
+from django.contrib.auth.hashers import make_password
+from rest_framework.permissions import IsAuthenticated
+#from django.views.decorators.csrf import csrf_exempt
+#from django.utils.decorators import method_decorator
 
 import jwt
 import datetime
@@ -79,3 +83,36 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+#@method_decorator(csrf_exempt, name='dispatch')
+class ChangePasswordView(APIView):
+    def post(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = User.objects.filter(id=payload['id']).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+    
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        data = request.data
+        current_password = data.get('current_password')
+        new_password = data.get('new_password')
+
+        if not user.check_password(current_password):
+            return Response({'error': 'Wrong current password'}, status=400)
+
+        user.password = make_password(new_password)
+        user.save()
+        return Response({'success': 'Password changed successfully'})

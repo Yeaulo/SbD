@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Contracts from './components/Contracts/ContractData'
 import {Route, Routes} from "react-router-dom"
 import ViewSmartmeter from './components/ViewSmartmeter/ViewSmartmeter'
+import ChangePassword from './components/changepass/changepass'
 
 
 
@@ -25,6 +26,7 @@ function App (){
         <Route path="/customerData" element={<UserData/>}/>
         <Route path="/contracts" element={<Contracts/>}/>
         <Route path="/smartmeter" element={<ViewSmartmeter/>}/>
+        <Route path="/change-password" element={<ChangePassword />} />
       </Routes>
     </div>
  
