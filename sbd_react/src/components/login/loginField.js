@@ -15,6 +15,7 @@ export default function LoginField({onChangeToRegister}) {
     }));
   };
 
+<<<<<<< Updated upstream
 
   function onSubmitRegister(){
     console.log('Registrierung erfolgreich');
@@ -24,6 +25,23 @@ export default function LoginField({onChangeToRegister}) {
     console.log('Login erfolgreich');
     console.log(credentials);
   }
+=======
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/api/login", {
+        email: credentials.email,
+        password: credentials.password,
+      });
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error(
+        "Login error:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+>>>>>>> Stashed changes
 
   return (
     <div className="login-page">
