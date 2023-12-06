@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import "../../styles/Contracts/contracts.css";
-import DropDown from "../usables/DropDown";
+import DropDown from "../utils/DropDown";
 import ContractDataRow from "./ContractDataRow";
 
 export default function Contracts() {

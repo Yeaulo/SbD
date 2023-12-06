@@ -71,10 +71,8 @@ def getMeasurementsValues(request, smartmeter_id):
 
 class CustomersView(APIView):
     def get(self, request):
-        print(request.COOKIES)
-        # customer_data = Customers.objects.get(customer_id=2)
-        # return Response({"data": customer_data.toJson()})
-        return Response({"data": "test"})
+        customer_data = Customers.objects.get(customer_id=2)
+        return Response({"data": customer_data.toJson()})
 
     def post(self, request):
         data = request.data

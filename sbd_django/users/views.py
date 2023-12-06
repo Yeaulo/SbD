@@ -43,11 +43,11 @@ class LoginView(APIView):
 
         response = Response()
 
-        response.set_cookie(key='access_token', value=token,secure=True, httponly=True, max_age=3600)
+        response.set_cookie(key='access_token', value=token,  max_age=3600, secure=True, httponly=True, domain='localhost', path='/')
         response.data = {
-            'accessToken': token
+            'accessToken': token,
+            'expiresIn': '3600'
         }
-
         return response
 
 
