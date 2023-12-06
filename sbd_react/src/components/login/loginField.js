@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "../../styles/login/login.css";
-import axios from "axios";
-import { Link } from "react-router-dom";
+
+import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const navigate = useNavigate();
+function Login({ setShowNavbar }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,12 +22,16 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/login", {
-        email: credentials.email,
-        password: credentials.password,
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(credentials),
       });
-      console.log("Login successful:", response.data);
+      const data = await response.json();
+
       navigate("/customerData");
+      setShowNavbar(true);
     } catch (error) {
       console.error(
         "Login error:",
