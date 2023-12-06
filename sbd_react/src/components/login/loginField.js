@@ -19,13 +19,6 @@ function Login({ setShowNavbar }) {
     }));
   };
 
-  function setCookie(cName, cValue, expirationTime) {
-    let date = new Date();
-    date.setTime(date.getTime() + expirationTime);
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +29,7 @@ function Login({ setShowNavbar }) {
         body: JSON.stringify(credentials),
       });
       const data = await response.json();
-      setCookie("isAuthenticated", true, data.expiresIn);
+
       navigate("/customerData");
       setShowNavbar(true);
     } catch (error) {

@@ -4,16 +4,28 @@ from rest_framework.views import APIView
 from .models import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from rest_framework.exceptions import AuthenticationFailed
 
-# Create: Customers.objects.create(last_name="Bene", first_name="Geba", addresss="Augarten", house_number=112, post_code=68165)
-# Alle Daten: Customers.objects.all().values()
-# Ein Datensatz: Customers.objects.get(customer_id=5) und toJson() aufrufen
-# Filter: Customers.objects.filter(customer_id__gt=5).values() : gt = größer, lt = kleiner
+import jwt
+from sbd_django.settings import JWT_SIGNING_KEY
 
+def getId(request):
+    cookie_value = request.COOKIES.get('access_token',None)
+
+    print(request.COOKIES)
+    if not cookie_value:
+        raise AuthenticationFailed('Unauthenticated')
+    
+    try:
+        payload = jwt.decode(cookie_value, str(JWT_SIGNING_KEY), algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        raise AuthenticationFailed('Unauthenticated')
+    
+    return payload["id"]
 
 @api_view(["GET"])
 def getSmartMeter(request):
-    smartmeter = Smartmeter.objects.filter(customer_id=1).values()
+    smartmeter = Smartmeter.objects.filter(customer_id=getId(request)).values()
     return Response({"data": smartmeter})
 
 # TODO Auch nach Customer id filtern
@@ -50,7 +62,6 @@ def getContractData(request, smartmeter_id):
 
 @api_view(["GET"])
 def getMeasurements(request, smartmeter_id):
-    # smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
     measurements = Measurements.objects.filter(
         smartmeter_id=smartmeter_id).values()
     return Response({"data": measurements})
@@ -71,7 +82,8 @@ def getMeasurementsValues(request, smartmeter_id):
 
 class CustomersView(APIView):
     def get(self, request):
-        customer_data = Customers.objects.get(customer_id=2)
+
+        customer_data = Customers.objects.get(customer_id=getId(request))
         return Response({"data": customer_data.toJson()})
 
     def post(self, request):
@@ -82,7 +94,7 @@ class CustomersView(APIView):
         house_number = data.get("house_number", None)
         post_code = data.get("post_code", None)
 
-        customerData = Customers.objects.get(customer_id=2)
+        customerData = Customers.objects.get(customer_id=getId(request))
 
         if not last_name or not first_name or not adress or not house_number or not post_code:
             return Response({"error": "All values must be filled"}, status=401)

@@ -59,6 +59,7 @@ export default function UserData() {
           "http://localhost:8000/api/customerData/",
           {
             method: "POST",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
             },
