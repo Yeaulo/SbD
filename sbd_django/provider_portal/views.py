@@ -25,12 +25,7 @@ def getId(request):
 
 @api_view(["GET"])
 def getSmartMeter(request):
-<<<<<<< Updated upstream
     smartmeter = Smartmeter.objects.filter(customer_id=getId(request)).values()
-=======
-    
-    smartmeter = Smartmeter.objects.filter(customer_id=1).values()
->>>>>>> Stashed changes
     return Response({"data": smartmeter})
 
 # TODO Auch nach Customer id filtern
