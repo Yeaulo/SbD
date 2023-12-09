@@ -18,18 +18,33 @@ export default function UserData() {
 
   useEffect(() => {
     setIsLoading(true);
+
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/customerData/");
+        const url = "http://localhost:8000/api/customerData/";
+
+        const authToken = "dein_Autorisierungs_token";
+
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`, // Hier wird der Authorization-Header gesetzt
+          },
+        });
+
         const data = await response.json();
         setUserData(data.data);
         initialUserData = { ...data.data };
       } catch (error) {
         console.error("Fetch error:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
+
     fetchData();
-    setIsLoading(false);
   }, []);
 
   function handleChange(e) {
@@ -51,6 +66,7 @@ export default function UserData() {
           "http://localhost:8000/api/customerData/",
           {
             method: "POST",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
             },
