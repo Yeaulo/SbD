@@ -1,0 +1,27 @@
+.measurements-important-values{
+    text-align: center;
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 45%;
+    height: 100%;
+    border-radius: 10px;
+    left: 0;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.034);
+}
+
+.important-value-header{
+    font-size: calc(0.5vw + 1.3vh);
+    font-weight: bold;
+    margin: 0%;
+    text-align: center;
+}
+
+.important-values {
+    font-size: calc(1.3vw + 2.3vh);
+    font-weight: bold;
+    margin-left: 1%;
+    margin: 0%;
+    text-align: center;
+}

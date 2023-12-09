@@ -70,3 +70,17 @@ h2 {
 .submit-button:hover {
     background-color: #b9b9b9; 
 }
+
+.register-link-div{
+    margin-top: 8%;
+}
+
+.register-link{
+    text-decoration: none;
+}
+
+.register-link:hover{
+    text-decoration: none;
+    color: rgb(58, 58, 230);
+    font-weight: bolder;
+}

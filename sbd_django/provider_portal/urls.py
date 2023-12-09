@@ -10,5 +10,4 @@ urlpatterns = [
     path("measurements/<date>/", views.getMeasurementsByDate),
     path("measurementsValues/", views.getMeasurementsValues),
     path("smartmeter/<smartmeter_id>/", views.getSmartMeterById),
-    path("smarterAll/", views.getSmarterAll),
 ]

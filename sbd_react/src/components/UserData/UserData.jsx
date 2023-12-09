@@ -22,15 +22,11 @@ export default function UserData() {
     const fetchData = async () => {
       try {
         const url = "http://localhost:8000/api/customerData/";
-
-        const authToken = "dein_Autorisierungs_token";
-
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`, // Hier wird der Authorization-Header gesetzt
           },
         });
 
