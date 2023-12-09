@@ -12,7 +12,6 @@ from sbd_django.settings import JWT_SIGNING_KEY
 def getId(request):
     cookie_value = request.COOKIES.get('access_token',None)
 
-    print(request.COOKIES)
     if not cookie_value:
         raise AuthenticationFailed('Unauthenticated')
     
@@ -25,10 +24,8 @@ def getId(request):
 
 @api_view(["GET"])
 def getSmartMeter(request):
-    smartmeter = Smartmeter.objects.filter(customer_id=1).values()
+    smartmeter = Smartmeter.objects.filter(customer_id=getId(request)).values()
     return Response({"data": smartmeter})
-
-# TODO Auch nach Customer id filtern
 
 
 @api_view(["GET"])
@@ -37,11 +34,6 @@ def getSmartMeterById(request, smartmeter_id):
         smartmeter_id=smartmeter_id).values()
     return Response({"data": smartmeter})
 
-
-@api_view(["GET"])
-def getSmarterAll(request):
-    smartmeter = Smartmeter.objects.all().values()
-    return Response({"data": smartmeter})
 
 
 @api_view(["GET"])
@@ -53,8 +45,9 @@ def getContractData(request, smartmeter_id):
 
     min_end_date = smartmeter.contract_start + \
         relativedelta(months=contract_data.minimum_term)
-    if min_end_date < datetime.now().date():
-        min_end_date = datetime.now().date() + relativedelta(months=contract_data.minimum_term)
+
+    # if min_en  < datetime_2:
+    #     min_end_date = datetime.now() + relativedelta(months=contract_data.minimum_term)
 
     contract_data_json["contract_end"] = min_end_date
     return Response({"data": contract_data_json})

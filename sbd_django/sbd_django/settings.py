@@ -28,7 +28,7 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-r1t0*7q!9!5deomg6!0@pb1n5dshk(lcw6rb5hxzgesy_r#@6d"
 
-JWT_SIGNING_KEY = os.getenv("SECRET_KEY")
+JWT_SIGNING_KEY = os.getenv("JWT_SIGNING_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "users",
+    "sslserver",
 ]
 
 MIDDLEWARE = [
@@ -145,4 +146,9 @@ AUTH_USER_MODEL = "users.User"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+#Connection parms to provider portal
+
+PROVIDER_PORTAL_KEY= os.getenv("PROVIDER_PORTAL_KEY")
+PROVIDER_PORTAL_ID = os.getenv("PROVIDER_PORTAL_ID")
+PROVIDER_POTAL_URL = "https://sbd.jkristof.de:8100/v1/provider/"
 
