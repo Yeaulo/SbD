@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/ViewSmarter/smartmeter.css";
+import "../../styles/ViewSmartmeter/smartmeter.css";
 import DropDown from "../utils/DropDown";
 import Table from "./Table";
 

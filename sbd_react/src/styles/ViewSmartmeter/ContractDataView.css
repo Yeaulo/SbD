@@ -1,0 +1,29 @@
+.smartmeter-contract-data{
+    height: 100%;
+    font-size: calc(0.5vw + 1.3vh);
+    font-weight: bold;
+    margin: 0%;
+    margin-left: 3%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: left;
+}
+
+
+.smartmeter-inner-left_bottom {
+    text-align: center;
+    background-color: white;
+    width: 90%;
+    height: 15%;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.034);
+}
+
+.smartmeter-header-text{
+    font-size: calc(0.5vw + 1.3vh);
+    font-weight: bold;
+    margin: 0%;
+    margin-left: 3%;
+    text-align: left; 
+}
