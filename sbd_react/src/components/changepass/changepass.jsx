@@ -43,14 +43,16 @@ function ChangePassword() {
       <div className='changepassword-outerdiv'>
         <div className="changepassword-innerdiv">
           <div className='content-div'>
-            <h3>Change Password</h3>
+            <h3 className='changepassword-heading'>Change Password</h3>
             <input
+              className='changepassword-input'
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="Current Password"
             />
             <input
+              className='changepassword-input'
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
