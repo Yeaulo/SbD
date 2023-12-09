@@ -30,7 +30,6 @@ function App() {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/customerData" element={<UserData />} />
-          <Route path="/" element={<UserData />} />
           <Route path="/contracts" element={<Contracts />} />
           <Route path="/smartmeter" element={<ViewSmartmeter />} />
         </Route>
