@@ -74,9 +74,10 @@ function Login({ setShowNavbar }) {
             </button>
           </div>
         </form>
+        <div className="register-link-div">
+          <Link className="register-link" to="/register">Noch nicht registriert?</Link>
+        </div>
       </div>
-      <br /><br />
-        <Link to="/register">Noch nicht registriert?</Link>
     </div>
   );
 }
