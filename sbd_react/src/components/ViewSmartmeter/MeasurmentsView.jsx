@@ -1,6 +1,7 @@
 import ContractDataView from "./ContractDataView";
-import ImportantValues from "./ImportangValues";
+import ImportantValues from "./ImportantValues";
 import Table from "./Table";
+import "../../styles/ViewSmartmeter/MeasurmentsView.css";
 
 export default function MeasurementsView({ contractData, measurements }) {
   return (
@@ -20,6 +21,7 @@ export default function MeasurementsView({ contractData, measurements }) {
         />
       </div>
       <div className="measurements-table">
+        <p className="smartmeter-header-text">Verbrauchsübersicht</p>
         <Table measurements={measurements} />
       </div>
       <ContractDataView contractData={contractData} />

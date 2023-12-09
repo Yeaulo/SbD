@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/ViewSmarter/smartmeter.css";
+import "../../styles/ViewSmartmeter/smartmeter.css";
 import MeasurementsView from "./MeasurmentsView";
 // import Table from "./Table";
 
 // import MeasurementsView from "./MeasurmentsView";
-import SmartmeterDataViews from "./SmartmeterIDataView";
+import SmartmeterDataViews from "./SmartmeterDataView";
 
 export default function ViewSmartmeter() {
   const [measurements, setMeasurements] = useState([]);
