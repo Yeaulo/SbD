@@ -49,7 +49,7 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-    font-size: 16px;
+    font-size: calc(0.3vw + 1.4vh);
     background-color: #f2f2f2; /* hell Grau */
 }
 
@@ -58,7 +58,7 @@ h2 {
     font-size: calc(0.4vw + 1.1vh);
     margin-top: 10%;
     width: 30%;
-    background-color: #f2f2f2;
+    background-color: #b8b5b5;
     color: black;
     border: none;
     border-radius: 10px;
