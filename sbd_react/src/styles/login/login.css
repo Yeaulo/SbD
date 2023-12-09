@@ -29,6 +29,8 @@
 
 h2 {
     font-family: 'Julius Sans One', sans-serif;
+    font-size: calc(0.6vw + 1.7vh);
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 
@@ -41,26 +43,44 @@ h2 {
 
 .login-input {
     width: 100%;
+    height: 30%;
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-    font-size: 16px;
+    font-size: calc(0.3vw + 1.4vh);
     background-color: #f2f2f2; /* hell Grau */
 }
 
 .submit-button {
     padding: 10px;
-    background-color: #f2f2f2;
+    font-size: calc(0.4vw + 1.1vh);
+    margin-top: 10%;
+    width: 30%;
+    background-color: #b8b5b5;
     color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: 'Julius Sans One', sans-serif;
 }
 
 .submit-button:hover {
-    background-color: #d9d9d9; 
+    background-color: #b9b9b9; 
+}
+
+.register-link-div{
+    margin-top: 8%;
+}
+
+.register-link{
+    text-decoration: none;
+}
+
+.register-link:hover{
+    text-decoration: none;
+    color: rgb(58, 58, 230);
+    font-weight: bolder;
 }
