@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import '../../styles/login/register.css'
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function RegisterField({onChangeToLogin}) {
+function RegisterField({ setShowNavbar }) {
   const [credentials, setCredentials] = useState({
+    name: '',
     first_name: '',
     last_name: '',
-    address: '',
+    adress: '',
     email: '',
-    password_confirmation: '',
     password: '',
     house_number: '',
     post_code: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,51 +24,140 @@ export default function RegisterField({onChangeToLogin}) {
     }));
   };
 
-  function onSubmitRegister(){
-    console.log('Registrierung erfolgreich');
-    console.log(credentials);
-    
-  }
-  function onSubmitLogin(){
-    console.log('Login erfolgreich');
-    onChangeToLogin();
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(credentials),
+      });
+      const data = await response.json();
+      console.log(credentials);
 
-  const inputFields = [
-    { id: 'first_name', name: 'first_name', placeholder: 'first_name', required: true },
-    { id: 'last_name', name: 'last_name', placeholder: 'last_name', required: true },
-    { id: 'address', name: 'address', placeholder: 'address', required: true },
-    { id: 'email', name: 'email', placeholder: 'email', required: true },
-    { id: 'password_confirmation', name: 'password_confirmation', placeholder: 'PASSWORD WIEDERHOLEN', required: true },
-    { id: 'password', name: 'password', placeholder: 'PASSWORD', required: true },
-    { id: 'house_number', name: 'house_number', placeholder: 'house_number', required: true },
-    { id: 'post_code', name: 'post_code', placeholder: 'post_code', required: true }
-  ];
+      navigate("/login");
+      setShowNavbar(true);
+    } catch (error) {
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h2>REGISTRIERUNG</h2>
-          {inputFields.map((field) => (
-            <div className="input-group" key={field.id}>
-              <input
-                className="login-input"
-                type="text"
-                id={field.id}
-                name={field.name}
-                placeholder={field.placeholder}
-                value={credentials[field.name]}
-                onChange={handleChange}
-                required={field.required}
-              />
-            </div>
-          ))}
-          <button className="submit-button" onClick={onSubmitRegister}>Bestätigen</button>
-          <div>
-            <button className="submit-button" onClick={onSubmitLogin}>Login</button>
+    <div className="register-page">
+      <div className="register-container">
+        <h2>REGISTER</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="USERNAME"
+              value={credentials.name}
+              onChange={handleChange}
+              required
+            />
           </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="first_name"
+              name="first_name"
+              placeholder="FIRST NAME"
+              value={credentials.first_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="last_name"
+              name="last_name"
+              placeholder="LAST NAME"
+              value={credentials.last_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="adress"
+              name="adress"
+              placeholder="ADDRESS"
+              value={credentials.adress}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="EMAIL"
+              value={credentials.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="PASSWORD"
+              value={credentials.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="house_number"
+              name="house_number"
+              placeholder="HOUSE NUMBER"
+              value={credentials.house_number}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="register-input"
+              type="text"
+              id="post_code"
+              name="post_code"
+              placeholder="POST CODE"
+              value={credentials.post_code}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="submit-button-container">
+            <button className="submit-button" type="submit">
+              REGISTER
+            </button>
+          </div>
+        </form>
       </div>
+      <br /><br />
+        <Link to="/login">Bereits registriert? Zurück zum Login</Link>
     </div>
   );
 }
 
+export default RegisterField;
