@@ -9,23 +9,26 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt
 from sbd_django.settings import JWT_SIGNING_KEY
 
+
 def getId(request):
-    cookie_value = request.COOKIES.get('access_token',None)
+    cookie_value = request.COOKIES.get('access_token', None)
 
     print(request.COOKIES)
     if not cookie_value:
         raise AuthenticationFailed('Unauthenticated')
-    
+
     try:
-        payload = jwt.decode(cookie_value, str(JWT_SIGNING_KEY), algorithms=['HS256'])
+        payload = jwt.decode(cookie_value, str(
+            JWT_SIGNING_KEY), algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed('Unauthenticated')
-    
+
     return payload["id"]
+
 
 @api_view(["GET"])
 def getSmartMeter(request):
-    smartmeter = Smartmeter.objects.filter(customer_id=1).values()
+    smartmeter = Smartmeter.objects.filter(customer_id=getId(request)).values()
     return Response({"data": smartmeter})
 
 # TODO Auch nach Customer id filtern
