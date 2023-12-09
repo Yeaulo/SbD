@@ -51,7 +51,7 @@ function RegisterField({ setShowNavbar }) {
       <div className="register-container">
         <h2>REGISTER</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -63,7 +63,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -75,7 +75,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -87,7 +87,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -99,7 +99,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="email"
@@ -111,7 +111,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="password"
@@ -123,7 +123,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -135,7 +135,7 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group-register">
             <input
               className="register-input"
               type="text"
@@ -153,9 +153,10 @@ function RegisterField({ setShowNavbar }) {
             </button>
           </div>
         </form>
+        <div className="register-link-div">
+          <Link className="register-link" to="/login">Bereits registriert? Zurück zum Login</Link>
+        </div>
       </div>
-      <br /><br />
-        <Link to="/login">Bereits registriert? Zurück zum Login</Link>
     </div>
   );
 }
