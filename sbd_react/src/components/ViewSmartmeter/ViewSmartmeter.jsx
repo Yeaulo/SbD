@@ -44,7 +44,14 @@ export default function ViewSmartmeter() {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/smarterAll/");
+        const url = "http://localhost:8000/api/smartmeter/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
         let smartmeterList = [];
         data.data.map((item, index) => {
@@ -76,7 +83,14 @@ export default function ViewSmartmeter() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/measurements/" + smartmeter_id + "/"
+          "http://localhost:8000/api/measurements/" + smartmeter_id + "/",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         let smartmeterListMeasurments = [];
