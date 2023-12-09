@@ -15,7 +15,15 @@ function RegisterField({ setShowNavbar }) {
     post_code: ''
   });
   const navigate = useNavigate();
-
+  const [errorMessages, setErrorMessages] = useState([]);
+  const passwordRequirements = [
+    "-Mindestens 12 Zeichen lang",
+    "-Mindestens ein Großbuchstabe",
+    "-Mindestens ein Sondernzeichen",
+    "-Nicht nur aus Zahlen",
+    "-Keine Ähnlichkeit zu Ihren persönlichen Informationen",
+    "-Kein häufig verwendetes Passwort",
+  ];
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials(prevState => ({
@@ -26,6 +34,7 @@ function RegisterField({ setShowNavbar }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessages([]); // Reset error messages
     try {
       const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
@@ -33,16 +42,18 @@ function RegisterField({ setShowNavbar }) {
         credentials: "include",
         body: JSON.stringify(credentials),
       });
+  
+      if (!response.ok) {
+        setErrorMessages(['Das Passwort muss folgende Bedingungen erfüllen:'].concat(passwordRequirements));
+        return;
+      }
+  
       const data = await response.json();
-      console.log(credentials);
-
       navigate("/login");
       setShowNavbar(true);
     } catch (error) {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error:", error);
+      setErrorMessages(['Ein unbekannter Fehler ist aufgetreten']);
     }
   };
 
@@ -147,6 +158,15 @@ function RegisterField({ setShowNavbar }) {
               required
             />
           </div>
+          <br></br>
+            {errorMessages.length > 0 && (
+                <div className="error-messages">
+                  {errorMessages.map((message, index) => (
+                    <div key={index} className="error-message">{message}</div>
+                  ))}
+                </div>
+              )}
+              <br></br>
           <div className="submit-button-container">
             <button className="submit-button" type="submit">
               REGISTER
