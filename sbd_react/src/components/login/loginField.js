@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/login/login.css";
-
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Login({ setShowNavbar }) {
@@ -76,6 +75,8 @@ function Login({ setShowNavbar }) {
           </div>
         </form>
       </div>
+      <br /><br />
+        <Link to="/register">Noch nicht registriert?</Link>
     </div>
   );
 }
