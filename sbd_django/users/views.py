@@ -4,15 +4,10 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
 from provider_portal.models import Customers
-from django.contrib.auth.hashers import make_password
-from rest_framework.permissions import IsAuthenticated
-#from django.views.decorators.csrf import csrf_exempt
-#from django.utils.decorators import method_decorator
+from sbd_django.settings import JWT_SIGNING_KEY
 
 import jwt
 import datetime
-
-JWT_SECRET = "r3FIem8T67NVumSmD7IrdrC042YTrPAugLZJsucI80GLH0mHWkHmahHZKhc3jON_cu5aHMaIRM3u04svAv11QQ"
 
 class RegisterView(APIView):
     def post(self, request):
@@ -43,28 +38,30 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, str(JWT_SIGNING_KEY), algorithm='HS256')
 
         response = Response()
 
-        response.set_cookie(key='jwt', value=token, httponly=True)
+    
+        response.set_cookie(key='access_token', value=token,  max_age=3600, secure=True, httponly=True, domain='localhost', path='/')
+        response.set_cookie(key='isAuthenticated', value=True,  max_age=3600, secure=True, domain='localhost', path='/')
         response.data = {
-            'jwt': token
+            'accessToken': token,
+            'expiresIn': '3600'
         }
-
         return response
 
 
 class UserView(APIView):
 
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        token = request.COOKIES.get('access_token')
 
         if not token:
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
-            payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
+            payload = jwt.decode(token, JWT_SIGNING_KEY, algorithms=['HS256'])
         
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
@@ -83,36 +80,3 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
-
-#@method_decorator(csrf_exempt, name='dispatch')
-class ChangePasswordView(APIView):
-    def post(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        user = User.objects.filter(id=payload['id']).first()
-
-        if user is None:
-            raise AuthenticationFailed('User not found!')
-    
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        user = request.user
-        data = request.data
-        current_password = data.get('current_password')
-        new_password = data.get('new_password')
-
-        if not user.check_password(current_password):
-            return Response({'error': 'Wrong current password'}, status=400)
-
-        user.password = make_password(new_password)
-        user.save()
-        return Response({'success': 'Password changed successfully'})
