@@ -5,9 +5,11 @@ from .models import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from rest_framework.exceptions import AuthenticationFailed
+from datetime import datetime, timezone
 
 import jwt
-from sbd_django.settings import JWT_SIGNING_KEY
+from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
+
 
 def getId(request):
     cookie_value = request.COOKIES.get('access_token',None)
@@ -46,18 +48,70 @@ def getContractData(request, smartmeter_id):
     min_end_date = smartmeter.contract_start + \
         relativedelta(months=contract_data.minimum_term)
 
-    # if min_en  < datetime_2:
-    #     min_end_date = datetime.now() + relativedelta(months=contract_data.minimum_term)
-
     contract_data_json["contract_end"] = min_end_date
     return Response({"data": contract_data_json})
 
 
 @api_view(["GET"])
 def getMeasurements(request, smartmeter_id):
-    measurements = Measurements.objects.filter(
-        smartmeter_id=smartmeter_id).values()
-    return Response({"data": measurements})
+    try:
+        smartmeter_provider_id = Smartmeter.objects.get(smartmeter_id=smartmeter_id).provider_portal_UID
+
+        curr_time = datetime.now(timezone.utc).astimezone()
+        curr_time = str(curr_time.replace(second=0, microsecond=0).isoformat())
+
+        url = PROVIDER_POTAL_URL + "meter-measurements"
+        params = {
+            'customerUID': '0cb09f61-c3b9-44d0-b3fc-cd917430660d',
+            'meterUID': smartmeter_provider_id,
+            'startTime': '2023-12-09T10:00:00+00:00',
+            'endTime': curr_time,
+            'dataInterval': '1700'
+        }
+
+        headers = {
+            'Content-Type': 'application/json', 
+            'Authorization': 'Bearer ' + str(PROVIDER_PORTAL_KEY)
+        }
+
+        response = requests.get(url, params=params, headers=headers, verify=False)
+
+        jResponse = response.json()
+        print(jResponse)
+        values_list = [(datetime.strptime(entry["time"], '%Y-%m-%dT%H:%M:%S%z'), entry["value"]) for entry in jResponse.get("data") if entry.get("value") is not None]
+
+        curr_val = round(values_list[-1][1],2)
+
+        values = {}
+        
+        for time, value in values_list:
+            if time.hour in values:
+                values[time.hour] += [value]
+            else:
+                values[time.hour] =  [value]
+
+        avgs = {}
+        last_value = 0
+        for key, vals in values.items():
+            if len(vals) == 1:
+                avgs[key] = round(vals[0] - last_value,2)
+            else:
+                avgs[key] = round(vals[-1] - vals[0],2)
+            last_value = vals[-1]
+
+        month_avg = round(sum(avgs.values()) / len(avgs),2)
+
+        print(avgs)
+        response_data = {"month_values": avgs, "curr_val": curr_val, "month_avg": month_avg}
+        
+        return Response({"data": response_data})
+    except Exception as e:
+        raise ValueError(e)
+ 
+
+    
+    
+   
 
 
 @api_view(["GET"])
