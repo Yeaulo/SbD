@@ -1,13 +1,20 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import InputUserData from "./InputUserData";
 import "../../styles/UserData/userdata.css";
 
 let initialUserData;
-const _ = require("lodash"); //used to compare objects
+const _ = require("lodash");
 
 export default function UserData() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  function redirectToChangePassword() {
+    navigate('/change-password');
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -129,6 +136,14 @@ export default function UserData() {
             >
               Reset
             </button>
+
+            <button
+              className="customer-data-button submit-button"
+              onClick={redirectToChangePassword}
+              >
+              Change Password
+            </button>
+
             <button
               className="customer-data-button submit-button"
               onClick={submitNewInput}
