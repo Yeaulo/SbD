@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Contracts from "./components/Contracts/ContractData";
 import { Route, Routes } from "react-router-dom";
 import ViewSmartmeter from "./components/ViewSmartmeter/ViewSmartmeter";
+import ChangePassword from "./components/changepass/changepass"
 import PrivateRoutes from "./components/utils/PrivateRoutes";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<UserData />} />
           <Route path="/contracts" element={<Contracts />} />
           <Route path="/smartmeter" element={<ViewSmartmeter />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </div>
