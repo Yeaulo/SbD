@@ -43,13 +43,13 @@ function Register({onChangeToLogin}) {
   ];
 
   return (
-    <div className="login-page">
-      <div className="login-container">
+    <div className="register-page">
+      <div className="register-container">
         <h2>REGISTRIERUNG</h2>
           {inputFields.map((field) => (
-            <div className="input-group" key={field.id}>
+            <div className="input-group-register" key={field.id}>
               <input
-                className="login-input"
+                className="register-input"
                 type="text"
                 id={field.id}
                 name={field.name}
@@ -60,8 +60,8 @@ function Register({onChangeToLogin}) {
               />
             </div>
           ))}
-          <button className="submit-button" onClick={onSubmitRegister}>Bestätigen</button>
-          <div>
+          <div className='submitbutton-div'>
+            <button className="submit-button" onClick={onSubmitRegister}>Bestätigen</button>
             <button className="submit-button" onClick={onSubmitLogin}>Login</button>
           </div>
       </div>

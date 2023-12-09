@@ -39,24 +39,32 @@ function ChangePassword() {
   }
 
   return (
-    <div className="change-password">
-      <h3>Change Password</h3>
-      <input
-        type="password"
-        value={currentPassword}
-        onChange={(e) => setCurrentPassword(e.target.value)}
-        placeholder="Current Password"
-      />
-      <input
-        type="password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-        placeholder="New Password"
-      />
-      <button className="change-password-button" onClick={handleChangePassword}>
-Change Password
-      </button>
-      {message && <p>{message}</p>}
+    <div className='changepassword-div'>
+      <div className='changepassword-outerdiv'>
+        <div className="changepassword-innerdiv">
+          <div className='content-div'>
+            <h3 className='changepassword-heading'>Change Password</h3>
+            <input
+              className='changepassword-input'
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder="Current Password"
+            />
+            <input
+              className='changepassword-input'
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="New Password"
+            />
+            <button className="change-password-button" onClick={handleChangePassword}>
+                Change Password
+            </button>
+            {message && <p>{message}</p>}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
