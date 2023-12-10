@@ -5,8 +5,7 @@ from django.utils.html import escape
 from rest_framework.exceptions import ValidationError
 
 def validate_input(request):
-    print(request.data)
-    for key, value in request.data.items():
+    for key, value in request.items():
         if key == "last_name" or key == "first_name":
             if not check_only_strings(value) or len(value) > 50:
                 return False

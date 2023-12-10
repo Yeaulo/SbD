@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function RegisterField({ setShowNavbar }) {
   const [credentials, setCredentials] = useState({
-    name: "",
     first_name: "",
     last_name: "",
     adress: "",

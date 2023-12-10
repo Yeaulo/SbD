@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$title": "Measurements",
+    "type": "object",
+    "properties": {
+    "data": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+            "time": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "value": {
+                "type": ["number", "null"]
+            }
+            },
+            "required": ["time", "value"],
+            "additionalProperties": false
+        }
+        }
+    },
+    "required": ["data"],
+    "additionalProperties": false
+}

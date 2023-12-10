@@ -7,7 +7,4 @@ urlpatterns = [
     path("smartmeter/", views.getSmartMeter),
     path("contractData/<smartmeter_id>/", views.getContractData),
     path("measurements/<smartmeter_id>/", views.getMeasurements),
-    path("measurements/<date>/", views.getMeasurementsByDate),
-    path("measurementsValues/", views.getMeasurementsValues),
-    path("smartmeter/<smartmeter_id>/", views.getSmartMeterById),
 ]

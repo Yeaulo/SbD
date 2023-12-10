@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "contract_id": {"type": "integer"},
+    "price_per_month": {"type": "number"},
+    "description": {"type": "string"},
+    "minimum_term": {"type": "integer"},
+    "notice_period": {"type": "integer"},
+    "contract_start": {"type": "string", "format": "date-time"},
+    "contract_end": {"type": "string", "format": "date-time"}
+  },
+  "required": ["contract_id", "price_per_month", "description", "minimum_term", "notice_period", "contract_start", "contract_end"],
+  "additionalProperties": false
+}

@@ -79,9 +79,15 @@ export default function ViewSmartmeter() {
   function getContractData(smartmeter_id) {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/contractData/" + smartmeter_id + "/"
-        );
+        const url =
+          "http://localhost:8000/api/contractData/" + smartmeter_id + "/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
         setContractData(data.data);
       } catch (error) {
