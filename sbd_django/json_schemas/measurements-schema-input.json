@@ -24,3 +24,4 @@
     "required": ["data"],
     "additionalProperties": false
 }
+
