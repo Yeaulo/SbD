@@ -8,6 +8,7 @@ from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from datetime import datetime, timezone
 from utils.input_validation import validate_input
 from django.utils.html import escape
+from dateutil.relativedelta import relativedelta
 
 import jwt
 from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
@@ -59,14 +60,17 @@ def getMeasurements(request, smartmeter_id):
     try:
         smartmeter_provider_id = Smartmeter.objects.get(smartmeter_id=smartmeter_id).provider_portal_UID
 
+        
         curr_time = datetime.now(timezone.utc).astimezone()
+        start_time = curr_time - relativedelta(years=1)
         curr_time = str(curr_time.replace(second=0, microsecond=0).isoformat())
+        start_time = str(start_time.replace(second=0, microsecond=0).isoformat())
 
         url = PROVIDER_POTAL_URL + "meter-measurements"
         params = {
             'customerUID': '0cb09f61-c3b9-44d0-b3fc-cd917430660d',
             'meterUID': smartmeter_provider_id,
-            'startTime': '2022-12-10T10:00:00+00:00',
+            'startTime': start_time,
             'endTime': curr_time,
             'dataInterval': '86400'
         }
@@ -79,6 +83,7 @@ def getMeasurements(request, smartmeter_id):
         response = requests.get(url, params=params, headers=headers, verify=False)
 
         jResponse = response.json()
+        print(jResponse)
     
         values_list = [(datetime.strptime(entry["time"], '%Y-%m-%dT%H:%M:%S%z'), entry["value"]) for entry in jResponse.get("data") if entry.get("value") is not None]
 
