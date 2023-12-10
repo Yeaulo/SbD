@@ -21,10 +21,7 @@ function App() {
       {showNavbar && <Navbar />}
 
       <Routes>
-        <Route
-          path="/login"
-          element={<LoginField setShowNavbar={console.log("test")} />}
-        />
+        <Route path="/login" element={<LoginField />} />
         <Route path="/register" element={<RegisterField />} />
 
         <Route element={<PrivateRoutes />}>

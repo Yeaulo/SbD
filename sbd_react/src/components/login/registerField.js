@@ -140,6 +140,18 @@ function RegisterField({ setShowNavbar }) {
           <div className="input-group-register">
             <input
               className="register-input"
+              type="password"
+              id="passwordConfirmation"
+              name="passwordConfirmation"
+              placeholder="PASSWORD"
+              value={credentials.passwordConfirmation}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group-register">
+            <input
+              className="register-input"
               type="text"
               id="house_number"
               name="house_number"
