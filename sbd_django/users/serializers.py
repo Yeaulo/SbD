@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from django.contrib.auth.password_validation import validate_password
+from django.utils.html import escape
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,8 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
     
 
     def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        email = validated_data.get('email', None)
+        password = escape(validated_data.pop('password', None))
+        email = escape(validated_data.get('email', None))
 
         validate_password(password)
    

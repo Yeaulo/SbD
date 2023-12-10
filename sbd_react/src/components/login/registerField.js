@@ -36,23 +36,30 @@ function RegisterField({ setShowNavbar }) {
     e.preventDefault();
     setErrorMessages([]); // Reset error messages
     try {
+      let newCredentials = { ...credentials };
+      newCredentials["post_code"] = parseInt(newCredentials["post_code"]);
+      newCredentials["house_number"] = parseInt(newCredentials["house_number"]);
       const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(newCredentials),
       });
 
       if (!response.ok) {
-        setErrorMessages(
-          ["Das Passwort muss folgende Bedingungen erfüllen:"].concat(
-            passwordRequirements
-          )
-        );
+        const data = await response.json();
+        if (data["error"]) {
+          setErrorMessages([data["error"]]);
+        } else {
+          setErrorMessages(
+            ["Das Passwort muss folgende Bedingungen erfüllen:"].concat(
+              passwordRequirements
+            )
+          );
+        }
         return;
       }
-
-      const data = await response.json();
+      setErrorMessages([]);
       navigate("/login");
     } catch (error) {
       console.error("Error:", error);
@@ -65,18 +72,6 @@ function RegisterField({ setShowNavbar }) {
       <div className="register-container">
         <h2>REGISTER</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-group-register">
-            <input
-              className="register-input"
-              type="text"
-              id="name"
-              name="name"
-              placeholder="USERNAME"
-              value={credentials.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
           <div className="input-group-register">
             <input
               className="register-input"
@@ -143,7 +138,7 @@ function RegisterField({ setShowNavbar }) {
               type="password"
               id="passwordConfirmation"
               name="passwordConfirmation"
-              placeholder="PASSWORD"
+              placeholder="PASSWORD CONFIRMATION"
               value={credentials.passwordConfirmation}
               onChange={handleChange}
               required

@@ -18,7 +18,6 @@ class Customers(models.Model):
 
     def toJson(self):
         return {
-            "customer_id": self.customer_id,
             "last_name": self.last_name,
             "first_name": self.first_name,
             "adress": self.adress,
