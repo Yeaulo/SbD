@@ -1,21 +1,32 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from .serializers import UserSerializer
 from .models import User
 from provider_portal.models import Customers
 from sbd_django.settings import JWT_SIGNING_KEY
+from utils.input_validation import validate_input
+from django.utils.html import escape
 
 import jwt
 import datetime
 
 class RegisterView(APIView):
     def post(self, request):
+        try:
+            if not validate_input(request):
+                raise ValidationError("Invalid input")
+        except ValidationError as e:
+            return Response({'error': "Invalid input"}, status=400)
+
+        if request.data.get('password', None) != request.data.get('passwordConfirmation', None):
+            return Response({'error': "Passwords doesnt match"}, status=400)
+        
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
         
-        Customers.objects.create(customer_id = serializer.data.get('id', None),first_name=request.data.get('first_name', None), last_name=request.data.get('last_name', None), adress=request.data.get('adress', None), house_number=request.data.get('house_number', None), post_code=request.data.get('post_code', None))
+        Customers.objects.create(customer_id = serializer.data.get('id', None),first_name=escape(request.data.get('first_name', None)), last_name=escape(request.data.get('last_name', None)), adress=escape(request.data.get('adress', None)), house_number=escape(request.data.get('house_number', None)), post_code=escape(request.data.get('post_code', None)))
         
         response = Response(serializer.data)
         response.delete_cookie('isAuthenticated')
@@ -25,6 +36,13 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     def post(self, request):
+        try:
+            if not validate_input(request):
+                raise ValidationError("Invalid input")
+        except ValidationError as e:
+            return Response({'error': "Invalid input"}, status=400)
+        
+
         email = request.data['email']
         password = request.data['password']
 

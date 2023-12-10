@@ -91,8 +91,6 @@ export default function ViewSmartmeter() {
     fetchData();
   }
 
-  //
-
   return (
     <div className="smartmeter-container">
       <MeasurementsView

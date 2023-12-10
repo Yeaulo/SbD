@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import InputUserData from "./InputUserData";
 import "../../styles/UserData/userdata.css";
 
@@ -9,11 +9,12 @@ const _ = require("lodash");
 export default function UserData() {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
 
   const navigate = useNavigate();
 
   function redirectToChangePassword() {
-    navigate('/change-password');
+    navigate("/change-password");
   }
 
   useEffect(() => {
@@ -57,6 +58,9 @@ export default function UserData() {
 
   function submitNewInput() {
     const postData = async () => {
+      let newUserData = { ...userData };
+      newUserData["post_code"] = parseInt(newUserData["post_code"]);
+      newUserData["house_number"] = parseInt(newUserData["house_number"]);
       try {
         const response = await fetch(
           "http://localhost:8000/api/customerData/",
@@ -66,13 +70,17 @@ export default function UserData() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(userData),
+            body: JSON.stringify(newUserData),
           }
         );
         if (response.status === 201) {
           console.log("Data updated successfully");
+          setErrorMessages([]);
         } else if (response.status === 401) {
           console.log("Unauthorized");
+        } else {
+          const data = await response.json();
+          setErrorMessages([data["error"]]);
         }
       } catch (error) {
         console.error("Fetch error:", error);
@@ -136,7 +144,7 @@ export default function UserData() {
             <button
               className="customer-data-button submit-button"
               onClick={redirectToChangePassword}
-              >
+            >
               Change Password
             </button>
 
@@ -147,6 +155,17 @@ export default function UserData() {
             >
               Submit
             </button>
+          </div>
+          <div className="error-container">
+            {errorMessages.length > 0 && (
+              <div className="error-messages">
+                {errorMessages.map((message, index) => (
+                  <div key={index} className="error-message">
+                    {message}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

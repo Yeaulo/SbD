@@ -4,8 +4,10 @@ from rest_framework.views import APIView
 from .models import *
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from datetime import datetime, timezone
+from utils.input_validation import validate_input
+from django.utils.html import escape
 
 import jwt
 from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
@@ -110,7 +112,7 @@ def getMeasurements(request, smartmeter_id):
     except Exception as e:
         print(jResponse)
         return Response({"data": []})
-        raise ValueError(e)
+    
  
 
     
@@ -133,11 +135,16 @@ def getMeasurementsValues(request, smartmeter_id):
 
 class CustomersView(APIView):
     def get(self, request):
-
         customer_data = Customers.objects.get(customer_id=getId(request))
         return Response({"data": customer_data.toJson()})
 
     def post(self, request):
+        try:
+            if not validate_input(request):
+                raise ValidationError("Invalid input")
+        except ValidationError as e:
+            return Response({'error': "Invalid input"}, status=400)
+        
         data = request.data
         last_name = data.get("last_name", None)
         first_name = data.get("first_name", None)
@@ -150,11 +157,11 @@ class CustomersView(APIView):
         if not last_name or not first_name or not adress or not house_number or not post_code:
             return Response({"error": "All values must be filled"}, status=401)
 
-        customerData.last_name = last_name
-        customerData.first_name = first_name
-        customerData.adress = adress
-        customerData.house_number = house_number
-        customerData.post_code = post_code
+        customerData.last_name =  escape(last_name)
+        customerData.first_name = escape(first_name)
+        customerData.adress = escape(adress)
+        customerData.house_number = escape(house_number)
+        customerData.post_code = escape(post_code)
         customerData.save()
 
         return Response({"message": "Customer data has been updated successfully."}, status=201)
