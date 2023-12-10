@@ -25,9 +25,7 @@ const Table = ({ measurements, costsKwH }) => {
   }
 
   const firstMonth = measurements
-    ? parseInt(
-        Object.keys(measurements)[Object.keys(measurements).length - 1]
-      ) - 12
+    ? parseInt(Object.keys(measurements)[Object.keys(measurements).length - 1])
     : 0;
 
   const monthOrder = getMonthOrder(firstMonth);
@@ -61,7 +59,7 @@ const Table = ({ measurements, costsKwH }) => {
             {measurements
               ? monthOrder.map((index, value) => (
                   <td key={index} style={tdStyle}>
-                    {measurements[index + 12] ? measurements[index + 12] : "-"}
+                    {measurements[index] ? measurements[index] : "-"}
                   </td>
                 ))
               : null}
@@ -71,8 +69,8 @@ const Table = ({ measurements, costsKwH }) => {
             {measurements
               ? monthOrder.map((index, value) => (
                   <td key={index} style={tdStyle}>
-                    {measurements[index + 12]
-                      ? (measurements[index + 12] * costsKwH).toFixed(2)
+                    {measurements[index]
+                      ? (measurements[index] * costsKwH).toFixed(2)
                       : "-"}
                   </td>
                 ))

@@ -64,9 +64,9 @@ def getMeasurements(request, smartmeter_id):
         params = {
             'customerUID': '0cb09f61-c3b9-44d0-b3fc-cd917430660d',
             'meterUID': smartmeter_provider_id,
-            'startTime': '2023-12-09T10:00:00+00:00',
+            'startTime': '2022-12-10T10:00:00+00:00',
             'endTime': curr_time,
-            'dataInterval': '1700'
+            'dataInterval': '86400'
         }
 
         headers = {
@@ -77,7 +77,7 @@ def getMeasurements(request, smartmeter_id):
         response = requests.get(url, params=params, headers=headers, verify=False)
 
         jResponse = response.json()
-        print(jResponse)
+    
         values_list = [(datetime.strptime(entry["time"], '%Y-%m-%dT%H:%M:%S%z'), entry["value"]) for entry in jResponse.get("data") if entry.get("value") is not None]
 
         curr_val = round(values_list[-1][1],2)
@@ -86,9 +86,9 @@ def getMeasurements(request, smartmeter_id):
         
         for time, value in values_list:
             if time.hour in values:
-                values[time.hour] += [value]
+                values[time.month] += [value]
             else:
-                values[time.hour] =  [value]
+                values[time.month] =  [value]
 
         avgs = {}
         last_value = 0
@@ -101,11 +101,12 @@ def getMeasurements(request, smartmeter_id):
 
         month_avg = round(sum(avgs.values()) / len(avgs),2)
 
-        print(avgs)
         response_data = {"month_values": avgs, "curr_val": curr_val, "month_avg": month_avg}
         
         return Response({"data": response_data})
     except Exception as e:
+        print(jResponse)
+        return Response({"data": []})
         raise ValueError(e)
  
 
