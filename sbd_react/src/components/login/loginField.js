@@ -9,6 +9,7 @@ function Login({}) {
     password: "",
   });
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +29,13 @@ function Login({}) {
         body: JSON.stringify(credentials),
       });
       const data = await response.json();
-
+      if (!response.ok) {
+        setMessage("Login failed");
+        return;
+      }
+      console.log("Login response:", data);
       navigate("/customerData");
+      setMessage("");
     } catch (error) {
       console.error(
         "Login error:",
@@ -42,6 +48,7 @@ function Login({}) {
     <div className="login-page">
       <div className="login-container">
         <h2>LOGIN</h2>
+        <div className="error-message">{message}</div>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
