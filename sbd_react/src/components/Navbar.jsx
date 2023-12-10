@@ -14,7 +14,6 @@ export default function Navbar() {
       credentials: "include",
     });
     const data = await response.json();
-    console.log(data);
     navigate("/login");
   }
 
