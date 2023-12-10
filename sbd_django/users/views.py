@@ -15,18 +15,21 @@ from jsonschema.exceptions import ValidationError
 import jwt
 import datetime
 
+
 def getId(request):
-    cookie_value = request.COOKIES.get('access_token',None)
+    cookie_value = request.COOKIES.get('access_token', None)
 
     if not cookie_value:
         raise AuthenticationFailed('Unauthenticated')
-    
+
     try:
-        payload = jwt.decode(cookie_value, str(JWT_SIGNING_KEY), algorithms=['HS256'])
+        payload = jwt.decode(cookie_value, str(
+            JWT_SIGNING_KEY), algorithms=['HS256'])
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed('Unauthenticated')
-    
+
     return payload["id"]
+
 
 def validate_json(j_data, schema_name):
     with open("./json_schemas/"+schema_name+".json") as s:
@@ -36,7 +39,7 @@ def validate_json(j_data, schema_name):
     except ValidationError as e:
         print(e)
         return False
-   
+
     if isinstance(j_data, dict):
         if not validate_input(j_data):
             return False
@@ -46,7 +49,7 @@ def validate_json(j_data, schema_name):
                 return False
 
     return True
-    
+
 
 class RegisterView(APIView):
     def post(self, request):
@@ -54,13 +57,14 @@ class RegisterView(APIView):
             return Response({"error": "Invalid input"}, status=500)
         if request.data.get('password', None) != request.data.get('passwordConfirmation', None):
             return Response({'error': "Passwords doesnt match"}, status=400)
-        
+
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
-        
-        Customers.objects.create(customer_id = serializer.data.get('id', None),first_name=escape(request.data.get('first_name', None)), last_name=escape(request.data.get('last_name', None)), adress=escape(request.data.get('adress', None)), house_number=escape(request.data.get('house_number', None)), post_code=escape(request.data.get('post_code', None)))
-        
+
+        Customers.objects.create(customer_id=serializer.data.get('id', None), first_name=escape(request.data.get('first_name', None)), last_name=escape(request.data.get(
+            'last_name', None)), adress=escape(request.data.get('adress', None)), house_number=escape(request.data.get('house_number', None)), post_code=escape(request.data.get('post_code', None)))
+
         response = Response(serializer.data)
         response.delete_cookie('isAuthenticated')
         response.delete_cookie('access_token')
@@ -80,20 +84,21 @@ class LoginView(APIView):
             if user is None or not user.check_password(password):
                 raise AuthenticationFailed('Credentials not valid!')
 
-
             payload = {
                 'id': user.id,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
                 'iat': datetime.datetime.utcnow()
             }
 
-            token = jwt.encode(payload, str(JWT_SIGNING_KEY), algorithm='HS256')
+            token = jwt.encode(payload, str(
+                JWT_SIGNING_KEY), algorithm='HS256')
 
             response = Response()
 
-        
-            response.set_cookie(key='access_token', value=token,  max_age=3600, secure=True, httponly=True, domain='localhost', path='/')
-            response.set_cookie(key='isAuthenticated', value=True,  max_age=3600, secure=True, domain='localhost', path='/')
+            response.set_cookie(key='access_token', value=token,  max_age=3600,
+                                secure=True, httponly=True, domain='127.0.0.1', path='/')
+            response.set_cookie(key='isAuthenticated', value=True,
+                                max_age=3600, secure=True, domain='127.0.0.1', path='/')
             response.data = {
                 'accessToken': token,
                 'expiresIn': '3600'
@@ -101,6 +106,7 @@ class LoginView(APIView):
             return response
         except Exception as e:
             return Response({'error': "Credentials invalid"}, status=400)
+
 
 class LogoutView(APIView):
     def post(self, request):
@@ -112,27 +118,28 @@ class LogoutView(APIView):
             'message': 'logged out'
         }
         return response
-    
+
+
 class ChangePasswordView(APIView):
     def post(self, request):
         try:
             if not validate_json(request.data, "change-password-schema-input"):
                 return Response({"error": "Invalid input"}, status=500)
-            
+
             customer_id = getId(request)
             user = User.objects.filter(id=customer_id).first()
-          
+
             if user is None or not user.check_password(request.data.get('current_password', None)):
                 raise AuthenticationFailed('Credentials not valid!')
-            
+
             if request.data.get('new_password', None) is None:
                 raise ValidationError("Invalid input")
 
             if request.data.get('new_password', None) != request.data.get('new_password_confirmation', None):
                 raise ValidationError("Passwords doesnt match")
-            
+
             validate_password(request.data.get('new_password', None))
-            
+
             user.set_password(request.data.get('new_password', None))
             user.save()
 
