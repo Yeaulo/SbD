@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import '../../styles/login/register.css'
+import React, { useState } from "react";
+import "../../styles/login/register.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function RegisterField({ setShowNavbar }) {
   const [credentials, setCredentials] = useState({
-    name: '',
-    first_name: '',
-    last_name: '',
-    adress: '',
-    email: '',
-    password: '',
-    house_number: '',
-    post_code: ''
+    name: "",
+    first_name: "",
+    last_name: "",
+    adress: "",
+    email: "",
+    password: "",
+    house_number: "",
+    post_code: "",
   });
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState([]);
@@ -26,9 +26,9 @@ function RegisterField({ setShowNavbar }) {
   ];
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCredentials(prevState => ({
+    setCredentials((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -42,18 +42,21 @@ function RegisterField({ setShowNavbar }) {
         credentials: "include",
         body: JSON.stringify(credentials),
       });
-  
+
       if (!response.ok) {
-        setErrorMessages(['Das Passwort muss folgende Bedingungen erfüllen:'].concat(passwordRequirements));
+        setErrorMessages(
+          ["Das Passwort muss folgende Bedingungen erfüllen:"].concat(
+            passwordRequirements
+          )
+        );
         return;
       }
-  
+
       const data = await response.json();
       navigate("/login");
-      setShowNavbar(true);
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessages(['Ein unbekannter Fehler ist aufgetreten']);
+      setErrorMessages(["Ein unbekannter Fehler ist aufgetreten"]);
     }
   };
 
@@ -159,14 +162,16 @@ function RegisterField({ setShowNavbar }) {
             />
           </div>
           <br></br>
-            {errorMessages.length > 0 && (
-                <div className="error-messages">
-                  {errorMessages.map((message, index) => (
-                    <div key={index} className="error-message">{message}</div>
-                  ))}
+          {errorMessages.length > 0 && (
+            <div className="error-messages">
+              {errorMessages.map((message, index) => (
+                <div key={index} className="error-message">
+                  {message}
                 </div>
-              )}
-              <br></br>
+              ))}
+            </div>
+          )}
+          <br></br>
           <div className="submit-button-container">
             <button className="submit-button" type="submit">
               REGISTER
@@ -174,7 +179,9 @@ function RegisterField({ setShowNavbar }) {
           </div>
         </form>
         <div className="register-link-div">
-          <Link className="register-link" to="/login">Bereits registriert? Zurück zum Login</Link>
+          <Link className="register-link" to="/login">
+            Bereits registriert? Zurück zum Login
+          </Link>
         </div>
       </div>
     </div>

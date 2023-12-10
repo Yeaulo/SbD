@@ -20,18 +20,17 @@ export default function ViewSmartmeter() {
     getMeasurements(id);
   }
 
-  // function avarageValue(smartmeterList) {
-  //   let sum = 0;
-  //   smartmeterList.map((item, index) => {
-  //     sum += item.value;
-  //   });
-  //   return sum / smartmeterList.length;
-  // }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/smarterAll/");
+        const url = "http://localhost:8000/api/smartmeter/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
         let smartmeterData = [];
         data.data.map((item, index) => {
@@ -59,27 +58,17 @@ export default function ViewSmartmeter() {
   function getMeasurements(smartmeter_id) {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/measurements/" + smartmeter_id + "/"
-        );
-        const data = await response.json();
-        let smartmeterListMeasurments = [];
-        data.data.map((item, index) => {
-          smartmeterListMeasurments.push(item);
+        const url =
+          "http://localhost:8000/api/measurements/" + smartmeter_id + "/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-
-        const measurements = {
-          values: smartmeterListMeasurments,
-          lastvalue:
-            smartmeterListMeasurments[smartmeterListMeasurments.length - 1],
-        };
-        setMeasurements(measurements);
-        // const valuelist = [
-        //   ...smartmeterListMeasurments,
-        //   ...Array(12 - smartmeterListMeasurments.length).fill({ value: "-" }),
-        // ];
-        // const average = avarageValue(smartmeterListMeasurments);
-        // setaverage(average);
+        const data = await response.json();
+        setMeasurements(data.data);
       } catch (error) {
         console.error("Fetch error:", error);
       }
