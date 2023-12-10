@@ -9,6 +9,9 @@ from datetime import datetime, timezone
 from utils.input_validation import validate_input
 from django.utils.html import escape
 from dateutil.relativedelta import relativedelta
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
+
 
 import jwt
 from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
@@ -83,7 +86,16 @@ def getMeasurements(request, smartmeter_id):
         response = requests.get(url, params=params, headers=headers, verify=False)
 
         jResponse = response.json()
-        print(jResponse)
+        
+      
+        with open("./json_schemas/measurements-schema.json") as s:
+            schema = json.load(s)
+           
+        
+        try:
+            validate(jResponse, schema)
+        except ValidationError as e:
+            return Response({"data": []})
     
         values_list = [(datetime.strptime(entry["time"], '%Y-%m-%dT%H:%M:%S%z'), entry["value"]) for entry in jResponse.get("data") if entry.get("value") is not None]
 
@@ -114,12 +126,6 @@ def getMeasurements(request, smartmeter_id):
     except Exception as e:
         
         return Response({"data": []})
-    
- 
-
-    
-    
-   
 
 
 @api_view(["GET"])
