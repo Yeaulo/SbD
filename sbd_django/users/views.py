@@ -11,6 +11,8 @@ import datetime
 
 class RegisterView(APIView):
     def post(self, request):
+        if request.data.get('password', None) != request.data.get('passwordConfirmation', None):
+            raise AuthenticationFailed('Passwords do not match!')
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
