@@ -1,7 +1,6 @@
 import DropDown from "../utils/DropDown";
 import "../../styles/ViewSmartmeter/SmartmeterDataView.css";
 
-
 function DataParagraph({ heading, value }) {
   return (
     <div className="smartmeter-header-text">
@@ -45,7 +44,9 @@ export default function SmartmeterDataViews({
               showData
                 ? selectedSmartmeterData.address +
                   " " +
-                  selectedSmartmeterData.house_number
+                  (selectedSmartmeterData.house_numnber
+                    ? selectedSmartmeterData.house_number
+                    : "")
                 : ""
             }
           />

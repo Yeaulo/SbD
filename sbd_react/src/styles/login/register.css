@@ -85,3 +85,15 @@ h2 {
     color: rgb(58, 58, 230);
     font-weight: bolder;
 }
+
+.error-messages {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    text-align: left;
+    font-weight: bold;
+}
