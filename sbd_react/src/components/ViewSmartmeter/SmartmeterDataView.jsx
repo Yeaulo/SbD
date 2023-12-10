@@ -30,36 +30,42 @@ export default function SmartmeterDataViews({
       </div>
       <div className="smartmeter-data">
         <div className="smartmeter-data-container">
-          <DataParagraph
-            heading={"Zählenummer"}
-            value={showData ? selectedSmartmeterData.id : ""}
-          />
-          <DataParagraph
-            heading={"Zählbeginn"}
-            value={showData ? selectedSmartmeterData.start : ""}
-          />
-          <DataParagraph
-            heading={"Straße / Nr"}
-            value={
-              showData
-                ? selectedSmartmeterData.address +
-                  " " +
-                  (selectedSmartmeterData.house_numnber
-                    ? selectedSmartmeterData.house_number
-                    : "")
-                : ""
-            }
-          />
-          <DataParagraph
-            heading={"Plz"}
-            value={showData ? selectedSmartmeterData.post_code : ""}
-          />
-          <div className="horizontal-line"></div>
-          <DropDown
-            items={smartmeterData}
-            onChangeSelection={onSelectedSmartMeterChange}
-            selectedId={selectedSmartmeterId}
-          />
+          <div className="smartmeter-data-paragraphs-container">
+            <div className="smartmeter-data-paragraphs">
+              <DataParagraph
+                heading={"Zählenummer"}
+                value={showData ? selectedSmartmeterData.id : ""}
+              />
+              <DataParagraph
+                heading={"Zählbeginn"}
+                value={showData ? selectedSmartmeterData.start : ""}
+              />
+              <DataParagraph
+                heading={"Straße / Nr"}
+                value={
+                  showData
+                    ? selectedSmartmeterData.address +
+                      " " +
+                      (selectedSmartmeterData.house_numnber
+                        ? selectedSmartmeterData.house_number
+                        : "")
+                    : ""
+                }
+              />
+              <DataParagraph
+                heading={"Plz"}
+                value={showData ? selectedSmartmeterData.post_code : ""}
+              />
+              <div className="horizontal-line"></div>
+            </div>
+          </div>
+          <div className="smartmeter-dropdown">
+            <DropDown
+              items={smartmeterData}
+              onChangeSelection={onSelectedSmartMeterChange}
+              selectedId={selectedSmartmeterId}
+            />
+          </div>
         </div>
       </div>
     </div>
