@@ -44,3 +44,45 @@ Um das Projekt starten zu lassen müssen noch vorbereitungen angepasst werden:
 **Webseite**
 
 1. Um die Webseite zu starten müssen sie den Befehl ausführen: python manage.py runserver
+
+## Modulstruktur
+
+- **sbd_django**: Backend-Verzeichnis mit Django-Konfigurationen.
+  - **cert**: Sicherheitszertifikate.
+  - **json.schemas**: JSON-Validierungsschemata.
+  - **MySQL**: Dockerfile und Docker-Compose für die Erstellung der Datenbank.
+  - **provider_portal**: Hauptschnittstelle für unsere Applikation.
+  - **users**: Modul für Authentifikation und Autorisierung.
+  - **Resources**: Statische und andere Ressourcen.
+
+- **sbd_react**: Frontend-Verzeichnis mit React-Komponenten.
+  - **public**: Statische Assets und Einstiegspunkte.
+  - **src**: Hauptentwicklungsverzeichnis.
+    - **components**: Unterteilte Funktionsmodule.
+    - **js**: JavaScript-Hilfsdateien.
+    - **styles**: CSS-Stildefinitionen.
+    - **tests**: Testfälle.
+    - **utils**: Skript für die Inputvalidierung.
+
+## Abhängigkeiten
+
+### Frameworks
+- **django**
+- **ReactJs**
+
+### Libraries
+- **pyjwt**
+
+## Testplan
+
+- **SAST CodeQL**
+  - Aufruf nach merge nach Main branch.
+  - Testet alle Javascript und python files.
+  - Testet gegen Injection-Angriffe, Sicherheitslücken in Authentifikation und Autorisierung und unsichere Datenverarbeitung.
+
+- **Automatisierte Tests für Ein-/ und Ausgabevalidierung**
+  - Testet, ob die Eingabe und Ausgabe dem Json-Format entspricht.
+  - Testet alle möglichen Eingaben und Ausgaben.
+
+- **Automatisierte Tests für API**
+  - Testet register und login Schnittstelle im Django-Backend.
