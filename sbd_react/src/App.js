@@ -13,7 +13,12 @@ function App() {
   const location = useLocation();
   const pathWithoutSlash = location.pathname.substring(1);
 
-  const showNavbarPaths = ["customerData", "contracts", "smartmeter"];
+  const showNavbarPaths = [
+    "customerData",
+    "contracts",
+    "smartmeter",
+    "change-password",
+  ];
 
   const showNavbar = showNavbarPaths.includes(pathWithoutSlash);
   return (
