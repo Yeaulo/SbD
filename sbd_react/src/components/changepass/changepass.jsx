@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "../../styles/ChangePassword/changepass.css";
-//import Cookies from 'js-cookie';
 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   async function handleChangePassword() {
     const apiUrl = "http://localhost:8000/api/change-password";
-    //const token = Cookies.get('jwt'); // Get the JWT token from cookies
 
     try {
       const response = await fetch(apiUrl, {
@@ -17,25 +17,30 @@ function ChangePassword() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           current_password: currentPassword,
           new_password: newPassword,
+          new_password_confirmation: newPasswordConfirm,
         }),
       });
 
+      setMessage("");
+      setError("");
       if (response.ok) {
         const data = await response.json();
-        setMessage(data.success);
+        setMessage(data.data);
       } else {
         const errorData = await response.json();
-        setMessage(errorData.error);
+        setError(errorData.error);
       }
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
+      setMessage("Password Reset failed. Please try again.");
     }
 
     setCurrentPassword("");
     setNewPassword("");
+    setNewPasswordConfirm("");
   }
 
   return (
@@ -58,14 +63,22 @@ function ChangePassword() {
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="New Password"
             />
+            <input
+              className="changepassword-input"
+              type="password"
+              value={newPasswordConfirm}
+              onChange={(e) => setNewPasswordConfirm(e.target.value)}
+              placeholder="New Password confirm"
+            />
             <button
               className="change-password-button"
               onClick={handleChangePassword}
             >
               Change Password
             </button>
-            {message && <p>{message}</p>}
           </div>
+          {message && <p>{message}</p>}
+          <div className="error-message">{error}</div>
         </div>
       </div>
     </div>
