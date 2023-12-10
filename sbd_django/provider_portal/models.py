@@ -4,6 +4,8 @@ from django.dispatch import receiver
 import requests
 from sbd_django.settings import PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
 import json
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 
 
 # Create your models here.
@@ -55,6 +57,7 @@ class Smartmeter(models.Model):
 
 @receiver(pre_save, sender=Smartmeter)
 def pre_create(sender, instance, **kwargs):
+ 
     url = PROVIDER_POTAL_URL + "meter-create"
     data = {
         "customerUID": str(PROVIDER_PORTAL_ID)
@@ -67,13 +70,19 @@ def pre_create(sender, instance, **kwargs):
     try:
         response = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
         response_data = response.json()
+        with open("./json_schemas/smartmeter-create-schema.json") as s:
+            schema = json.load(s)
+        validate(response_data, schema)
         instance.provider_portal_UID = response_data.get("meterUID")
     except requests.exceptions.RequestException as e:
         print(f'Fehler bei der HTTP-Anfrage: {e}')
-        raise 
+        raise
+    except ValidationError as e:
+        print(f'Fehler bei der Validierung: {e}')
+        raise
 
 @receiver(pre_delete, sender=Smartmeter)
-def pre_create(sender, instance, **kwargs):
+def pre_delete(sender, instance, **kwargs):
     url = PROVIDER_POTAL_URL + "meter-delete"
     data = {
         "customerUID": str(PROVIDER_PORTAL_ID),
@@ -84,7 +93,6 @@ def pre_create(sender, instance, **kwargs):
         'Content-Type': 'application/json', 
         'Authorization': 'Bearer ' + str(PROVIDER_PORTAL_KEY)
     }
-   
     try:
         response = requests.delete(url, headers=headers, data=json.dumps(data), verify=False)
     except requests.exceptions.RequestException as e:

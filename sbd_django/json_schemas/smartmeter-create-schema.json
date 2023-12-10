@@ -1,0 +1,9 @@
+{
+    "$title": "Smartmeter-Create",
+  "type": "object",
+  "properties": {
+    "message": {"type": "string"},
+    "meterUID": {"type": "string", "format": "uuid"}
+  },
+  "required": ["message", "meterUID"]
+}

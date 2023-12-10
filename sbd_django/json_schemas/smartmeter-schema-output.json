@@ -1,0 +1,18 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "smartmeter_id": {"type": "integer"},
+      "customer_id": {"type": "integer"},
+      "contract_id": {"type": "integer"},
+      "contract_start": {"type": "string", "format": "date-time"},
+      "address": {"type": "string"},
+      "house_numnber": {"type": "integer"},
+      "post_code": {"type": "integer"},
+      "provider_portal_UID": {"type": "string", "format": "uuid"}
+    },
+    "required": ["smartmeter_id", "customer_id", "contract_id", "contract_start", "address", "house_numnber", "post_code", "provider_portal_UID"],
+    "additionalProperties": false
+  }
+}

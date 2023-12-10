@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "last_name": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "adress": {
+      "type": "string"
+    },
+    "house_number": {
+      "type": "integer"
+    },
+    "post_code": {
+      "type": "integer"
+    }
+  },
+  "required": ["last_name", "first_name", "adress", "house_number", "post_code"],
+  "additionalProperties": false
+}
