@@ -14,7 +14,6 @@ export default function Navbar() {
       credentials: "include",
     });
     const data = await response.json();
-    console.log(data);
     navigate("/login");
   }
 
@@ -23,47 +22,47 @@ export default function Navbar() {
       <Link to="/" className="site-title">
         SB
       </Link>
-      <ul className="nav-links">
-        <li>
-          <Link
-            to="/customerData"
-            className={
-              path.pathname === "/customerData" ? "active-nav-item" : "nav-item"
-            }
-          >
-            Customer data
-          </Link>
-        </li>
-        <span className="nav-separator">|</span>
-        <li>
-          <Link
-            to="/contracts"
-            className={
-              path.pathname === "/contracts" ? "active-nav-item" : "nav-item"
-            }
-          >
-            Contracts
-          </Link>
-        </li>
-        <span className="nav-separator">|</span>
-        <li>
-          <Link
-            to="/smartmeter"
-            className={
-              path.pathname === "/smartmeter" ? "active-nav-item" : "nav-item"
-            }
-          >
-            Smartmeter
-          </Link>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <button className={"logout-button"} onClick={() => logout()}>
-            Smartmeter
-          </button>
-        </li>
-      </ul>
+      <div className="nav-links-div">
+        <ul className="nav-links">
+          <li>
+            <Link
+              to="/customerData"
+              className={
+                path.pathname === "/customerData" ? "active-nav-item" : "nav-item"
+              }
+            >
+              Customer data
+            </Link>
+          </li>
+          <span className="nav-separator">|</span>
+          <li>
+            <Link
+              to="/contracts"
+              className={
+                path.pathname === "/contracts" ? "active-nav-item" : "nav-item"
+              }
+            >
+              Contracts
+            </Link>
+          </li>
+          <span className="nav-separator">|</span>
+          <li>
+            <Link
+              to="/smartmeter"
+              className={
+                path.pathname === "/smartmeter" ? "active-nav-item" : "nav-item"
+              }
+            >
+              Smartmeter
+            </Link>
+          </li>
+        </ul>
+        <div className="logout-button-div">
+            <button className={"logout-button"} onClick={() => logout()}>
+              Logout
+            </button>
+        </div>
+      </div>
     </nav>
   );
 }

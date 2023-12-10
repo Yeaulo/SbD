@@ -41,3 +41,34 @@
     text-decoration: none;
 }
 
+.logout-button-div{
+    width: 7%;
+    display: flex;
+    justify-self: flex-end;
+    align-self: center;
+}
+
+.logout-button {
+    margin-right: 10%;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #424de2;
+    color: white;
+    cursor: pointer;
+    height: calc(1vw + 2vh);
+    width: 110%;
+    text-align: center;
+    font-size: calc(0.4vw + 1.1vh);
+    font-weight: bolder;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+.logout-button:hover{
+    background-color: #7981fa;
+}
+
+.nav-links-div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

@@ -70,7 +70,6 @@ export default function Contracts() {
 
     setIsLoading(false);
   }
-  console.log(contractData);
   return (
     <div className="contracts">
       <div className="outer-contracts">
