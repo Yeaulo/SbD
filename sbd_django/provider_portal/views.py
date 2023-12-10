@@ -110,7 +110,7 @@ def getMeasurements(request, smartmeter_id):
         
         return Response({"data": response_data})
     except Exception as e:
-        print(jResponse)
+        
         return Response({"data": []})
     
  
