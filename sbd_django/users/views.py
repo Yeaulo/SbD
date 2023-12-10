@@ -95,10 +95,9 @@ class LoginView(APIView):
             response.set_cookie(key='access_token', value=token,  max_age=3600, secure=True, httponly=True, domain='localhost', path='/')
             response.set_cookie(key='isAuthenticated', value=True,  max_age=3600, secure=True, domain='localhost', path='/')
             response.data = {
-                'accessToken': token,
-                'expiresIn': '3600'
+                'data': "logged in",
             }
-            return response({'data': "Logged in successfully"})
+            return response
         except Exception as e:
             return Response({'error': "Credentials invalid"}, status=400)
 
