@@ -1,8 +1,23 @@
 import "../styles/navbar.css";
-import { Link, useResolvedPath } from "react-router-dom";
+import { Link, useResolvedPath, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   let path = useResolvedPath();
+  const navigate = useNavigate();
+
+  async function logout() {
+    localStorage.clear();
+
+    const response = await fetch("http://localhost:8000/api/logout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    const data = await response.json();
+    console.log(data);
+    navigate("/login");
+  }
+
   return (
     <nav className="navbar">
       <Link to="/" className="site-title">
@@ -40,6 +55,13 @@ export default function Navbar() {
           >
             Smartmeter
           </Link>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <button className={"logout-button"} onClick={() => logout()}>
+            Smartmeter
+          </button>
         </li>
       </ul>
     </nav>

@@ -1,43 +1,38 @@
 import React from "react";
 import "../../styles/ViewSmartmeter/Table.css";
 
+const months = {
+  1: "Januar",
+  2: "Februar",
+  3: "März",
+  4: "April",
+  5: "Mai",
+  6: "Juni",
+  7: "Juli",
+  8: "August",
+  9: "September",
+  10: "Oktober",
+  11: "November",
+  12: "Dezember",
+};
+const Table = ({ measurements, costsKwH }) => {
+  function getMonthOrder(first_value) {
+    const liste = Array.from(
+      { length: 12 },
+      (_, index) => ((first_value + index) % 12) + 1
+    );
+    return liste;
+  }
 
-const Table = ({ measurements }) => {
-  const months = [
-    "Januar",
-    "Februar",
-    "März",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember",
-  ];
-  const year = 2023; // Setze das gewünschte Jahr hier ein
-  const cost = [
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-    0.25,
-  ];
+  const firstMonth = measurements
+    ? parseInt(Object.keys(measurements)[Object.keys(measurements).length - 1])
+    : 0;
 
-  const firstColumnValues = ["2023", "Verbrauch", "Kosten(Euro)"];
-  const loadMeasurements = measurements.length !== 0;
+  const monthOrder = getMonthOrder(firstMonth);
 
+  const firstColumnValues = ["", "Verbrauch", "Kosten(Euro)"];
   return (
-    <div style={{width: '100%', height: '70%', overflowY: "auto"}}>
+    <div style={{ width: "100%", height: "70%", overflowY: "auto" }}>
       <table
         style={{
           borderCollapse: "collapse",
@@ -49,30 +44,34 @@ const Table = ({ measurements }) => {
         <thead>
           <tr>
             <th style={thStyle}>{firstColumnValues[0]}</th>
-            {months.map((month, index) => (
-              <th key={index} style={thMonthStyle}>
-                {month}
-              </th>
-            ))}
+            {measurements
+              ? monthOrder.map((index, value) => (
+                  <th key={index} style={thMonthStyle}>
+                    {months[index]}
+                  </th>
+                ))
+              : null}
           </tr>
         </thead>
         <tbody>
           <tr>
             <td style={tdStyle}>{firstColumnValues[1]}</td>
-            {loadMeasurements
-              ? measurements.values.map((item, index) => (
+            {measurements
+              ? monthOrder.map((index, value) => (
                   <td key={index} style={tdStyle}>
-                    {item.value}
+                    {measurements[index] ? measurements[index] : "-"}
                   </td>
                 ))
               : null}
           </tr>
           <tr>
             <td style={tdStyle}>{firstColumnValues[2]}</td>
-            {loadMeasurements
-              ? measurements.values.map((item, index) => (
+            {measurements
+              ? monthOrder.map((index, value) => (
                   <td key={index} style={tdStyle}>
-                    {item.value === "-" ? "-" : item.value * cost[index]}
+                    {measurements[index]
+                      ? (measurements[index] * costsKwH).toFixed(2)
+                      : "-"}
                   </td>
                 ))
               : null}

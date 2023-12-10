@@ -16,6 +16,10 @@ class RegisterView(APIView):
         instance = serializer.save()
         
         Customers.objects.create(customer_id = serializer.data.get('id', None),first_name=request.data.get('first_name', None), last_name=request.data.get('last_name', None), adress=request.data.get('adress', None), house_number=request.data.get('house_number', None), post_code=request.data.get('post_code', None))
+        
+        response = Response(serializer.data)
+        response.delete_cookie('isAuthenticated')
+        response.delete_cookie('access_token')
         return Response(serializer.data)
 
 
@@ -26,11 +30,9 @@ class LoginView(APIView):
 
         user = User.objects.filter(email=email).first()
 
-        if user is None:
-            raise AuthenticationFailed('User not found!')
+        if user is None or not user.check_password(password):
+            raise AuthenticationFailed('Crednetials not valid!')
 
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
 
         payload = {
             'id': user.id,
@@ -58,25 +60,31 @@ class UserView(APIView):
         token = request.COOKIES.get('access_token')
 
         if not token:
+            response = Response()
+         
             raise AuthenticationFailed('Unauthenticated!')
 
         try:
             payload = jwt.decode(token, JWT_SIGNING_KEY, algorithms=['HS256'])
         
         except jwt.ExpiredSignatureError:
+            response = Response()
             raise AuthenticationFailed('Unauthenticated!')
 
         user = User.objects.filter(id=payload['id']).first()
         serializer = UserSerializer(user)
 
+        response = Response(serializer.data)
         return Response(serializer.data)
 
 
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
-        response.delete_cookie('jwt')
+        response.delete_cookie('access_token')
+        response.delete_cookie('isAuthenticated')
+
         response.data = {
-            'message': 'success'
+            'message': 'logged out'
         }
         return response

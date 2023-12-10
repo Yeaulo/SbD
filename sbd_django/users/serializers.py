@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
     
     def validate_password(self, value):
-        validate_password(value)
+        #validate_password(value)
         return value
 
     def create(self, validated_data):
