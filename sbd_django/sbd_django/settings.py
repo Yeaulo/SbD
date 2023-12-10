@@ -158,3 +158,5 @@ PROVIDER_PORTAL_KEY= os.getenv("PROVIDER_PORTAL_KEY")
 PROVIDER_PORTAL_ID = os.getenv("PROVIDER_PORTAL_ID")
 PROVIDER_POTAL_URL = "https://sbd.jkristof.de:8100/v1/provider/"
 
+PROVIDER_CERT_PATH = "./cert/provider.pem"
+
