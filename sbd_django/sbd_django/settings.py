@@ -117,9 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    {
-        'NAME': 'users.validators.CustomPasswordValidator',
-    }
+    # {
+    #     'NAME': 'users.validators.CustomPasswordValidator',
+    # }
 ]
 
 
@@ -146,10 +146,13 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
 AUTH_USER_MODEL = "users.User"
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 #Connection parms to provider portal

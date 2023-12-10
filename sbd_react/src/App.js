@@ -13,7 +13,12 @@ function App() {
   const location = useLocation();
   const pathWithoutSlash = location.pathname.substring(1);
 
-  const showNavbarPaths = ["customerData", "contracts", "smartmeter"];
+  const showNavbarPaths = [
+    "customerData",
+    "contracts",
+    "smartmeter",
+    "change-password",
+  ];
 
   const showNavbar = showNavbarPaths.includes(pathWithoutSlash);
   return (
@@ -21,10 +26,7 @@ function App() {
       {showNavbar && <Navbar />}
 
       <Routes>
-        <Route
-          path="/login"
-          element={<LoginField setShowNavbar={console.log("test")} />}
-        />
+        <Route path="/login" element={<LoginField />} />
         <Route path="/register" element={<RegisterField />} />
 
         <Route element={<PrivateRoutes />}>
