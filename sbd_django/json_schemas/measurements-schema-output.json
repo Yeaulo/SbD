@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "month_values": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]{1,2}$": {
+          "type": "number"
+        }
+      }
+    },
+    "curr_val": {
+      "type": "number"
+    },
+    "month_avg": {
+      "type": "number"
+    }
+  },
+  "required": ["month_values", "curr_val", "month_avg"]
+}

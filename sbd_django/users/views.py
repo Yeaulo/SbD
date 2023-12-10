@@ -8,6 +8,9 @@ from sbd_django.settings import JWT_SIGNING_KEY
 from utils.input_validation import validate_input
 from django.utils.html import escape
 from django.contrib.auth.password_validation import validate_password
+import json
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 
 import jwt
 import datetime
@@ -25,14 +28,30 @@ def getId(request):
     
     return payload["id"]
 
+def validate_json(j_data, schema_name):
+    with open("./json_schemas/"+schema_name+".json") as s:
+        schema = json.load(s)
+    try:
+        validate(j_data, schema)
+    except ValidationError as e:
+        print(e)
+        return False
+   
+    if isinstance(j_data, dict):
+        if not validate_input(j_data):
+            return False
+    elif isinstance(j_data, list):
+        for entry in j_data:
+            if not validate_input(entry):
+                return False
+
+    return True
+    
+
 class RegisterView(APIView):
     def post(self, request):
-        try:
-            if not validate_input(request):
-                raise ValidationError("Invalid input")
-        except ValidationError as e:
-            return Response({'error': "Invalid input"}, status=400)
-
+        if not validate_json(request.data, "register-schema"):
+            return Response({"error": "Invalid input"}, status=500)
         if request.data.get('password', None) != request.data.get('passwordConfirmation', None):
             return Response({'error': "Passwords doesnt match"}, status=400)
         
@@ -45,17 +64,13 @@ class RegisterView(APIView):
         response = Response(serializer.data)
         response.delete_cookie('isAuthenticated')
         response.delete_cookie('access_token')
-        return Response(serializer.data)
+        return Response({"data": "Registered successfully"})
 
 
 class LoginView(APIView):
     def post(self, request):
-        try:
-            if not validate_input(request):
-                raise ValidationError("Invalid input")
-        except ValidationError as e:
-            return Response({'error': "Invalid input"}, status=400)
-        
+        if not validate_json(request.data, "login-schema"):
+            return Response({"error": "Invalid input"}, status=500)
         try:
             email = request.data['email']
             password = request.data['password']
@@ -87,31 +102,6 @@ class LoginView(APIView):
         except Exception as e:
             return Response({'error': "Credentials invalid"}, status=400)
 
-
-class UserView(APIView):
-
-    def get(self, request):
-        token = request.COOKIES.get('access_token')
-
-        if not token:
-            response = Response()
-         
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, JWT_SIGNING_KEY, algorithms=['HS256'])
-        
-        except jwt.ExpiredSignatureError:
-            response = Response()
-            raise AuthenticationFailed('Unauthenticated!')
-
-        user = User.objects.filter(id=payload['id']).first()
-        serializer = UserSerializer(user)
-
-        response = Response(serializer.data)
-        return Response(serializer.data)
-
-
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
@@ -126,6 +116,9 @@ class LogoutView(APIView):
 class ChangePasswordView(APIView):
     def post(self, request):
         try:
+            if not validate_json(request.data, "change-password-schema-input"):
+                return Response({"error": "Invalid input"}, status=500)
+            
             customer_id = getId(request)
             user = User.objects.filter(id=customer_id).first()
           
@@ -145,8 +138,5 @@ class ChangePasswordView(APIView):
 
         except (AuthenticationFailed, ValidationError) as e:
             return Response({'error': "Password Reset failed"}, status=400)
-
-        
-
 
         return Response({"data": "Password Reset successful"})

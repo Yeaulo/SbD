@@ -30,38 +30,68 @@ def getId(request):
     
     return payload["id"]
 
+
+def validate_json(j_data, schema_name):
+    with open("./json_schemas/"+schema_name+".json") as s:
+        schema = json.load(s)
+    try:
+        validate(j_data, schema)
+    except ValidationError as e:
+        print(e)
+        return False
+   
+    if isinstance(j_data, dict):
+        if not validate_input(j_data):
+            return False
+    elif isinstance(j_data, list):
+        for entry in j_data:
+            if not validate_input(entry):
+                return False
+
+    return True
+    
+    
+
 @api_view(["GET"])
 def getSmartMeter(request):
     smartmeter = Smartmeter.objects.filter(customer_id=getId(request)).values()
-    return Response({"data": smartmeter})
-
-
-@api_view(["GET"])
-def getSmartMeterById(request, smartmeter_id):
-    smartmeter = Smartmeter.objects.filter(
-        smartmeter_id=smartmeter_id).values()
-    return Response({"data": smartmeter})
-
+    output= []
+    for entry in smartmeter:
+        entry["contract_start"] = entry["contract_start"].isoformat()
+        output.append(entry)
+    if not validate_json(output, "smartmeter-schema-output"):
+        return Response({"error": "Internal error"}, status=500)
+    return Response({"data": smartmeter.values()})
 
 
 @api_view(["GET"])
 def getContractData(request, smartmeter_id):
     smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
+    if smartmeter.customer_id != getId(request):
+        return Response({"error": "Unauthorized"}, status=401)
+
     contract_data = Contracts.objects.get(contract_id=smartmeter.contract_id)
     contract_data_json = contract_data.toJson()
-    contract_data_json["contract_start"] = smartmeter.contract_start
+    contract_data_json["contract_start"] = smartmeter.contract_start.isoformat()
 
     min_end_date = smartmeter.contract_start + \
         relativedelta(months=contract_data.minimum_term)
 
-    contract_data_json["contract_end"] = min_end_date
+    contract_data_json["contract_end"] = min_end_date.isoformat()
+
+    if not validate_json(contract_data_json, "contractData-schema-output"):
+        return Response({"error": "Internal error"}, status=500)
+    
     return Response({"data": contract_data_json})
 
 
 @api_view(["GET"])
 def getMeasurements(request, smartmeter_id):
     try:
-        smartmeter_provider_id = Smartmeter.objects.get(smartmeter_id=smartmeter_id).provider_portal_UID
+        smartmeter = Smartmeter.objects.get(smartmeter_id=smartmeter_id)
+        if smartmeter.customer_id != getId(request):
+            return Response({"error": "Unauthorized"}, status=401)
+        smartmeter_provider_id = smartmeter.provider_portal_UID
 
         
         curr_time = datetime.now(timezone.utc).astimezone()
@@ -88,9 +118,8 @@ def getMeasurements(request, smartmeter_id):
         jResponse = response.json()
         
       
-        with open("./json_schemas/measurements-schema.json") as s:
+        with open("./json_schemas/measurements-schema-input.json") as s:
             schema = json.load(s)
-           
         
         try:
             validate(jResponse, schema)
@@ -121,36 +150,24 @@ def getMeasurements(request, smartmeter_id):
         month_avg = round(sum(avgs.values()) / len(avgs),2)
 
         response_data = {"month_values": avgs, "curr_val": curr_val, "month_avg": month_avg}
-        
+
         return Response({"data": response_data})
     except Exception as e:
         
         return Response({"data": []})
 
 
-@api_view(["GET"])
-def getMeasurementsByDate(request, date):
-    measurements = Measurements.objects.filter(
-        smartmeter_id=2, date=date).values()
-    return Response({"data": measurements})
-
-
-@api_view(["GET"])
-def getMeasurementsValues(request, smartmeter_id):
-    measurements = Measurements.objects.filter(smartmeter_id=2).values("value")
-    return Response({"data": measurements})
-
-
 class CustomersView(APIView):
     def get(self, request):
         customer_data = Customers.objects.get(customer_id=getId(request))
+        if not validate_json(customer_data.toJson(), "customerData-schema-output"):
+            return Response({"error": "Internal error"}, status=500)
+
         return Response({"data": customer_data.toJson()})
 
     def post(self, request):
-        try:
-            if not validate_input(request):
-                raise ValidationError("Invalid input")
-        except ValidationError as e:
+        print(request.data)
+        if not validate_json(request.data, "customerData-schema-input"):
             return Response({'error': "Invalid input"}, status=400)
         
         data = request.data

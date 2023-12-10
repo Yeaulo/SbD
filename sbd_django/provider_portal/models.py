@@ -57,6 +57,7 @@ class Smartmeter(models.Model):
 
 @receiver(pre_save, sender=Smartmeter)
 def pre_create(sender, instance, **kwargs):
+ 
     url = PROVIDER_POTAL_URL + "meter-create"
     data = {
         "customerUID": str(PROVIDER_PORTAL_ID)
@@ -92,7 +93,6 @@ def pre_delete(sender, instance, **kwargs):
         'Content-Type': 'application/json', 
         'Authorization': 'Bearer ' + str(PROVIDER_PORTAL_KEY)
     }
-   
     try:
         response = requests.delete(url, headers=headers, data=json.dumps(data), verify=False)
     except requests.exceptions.RequestException as e:

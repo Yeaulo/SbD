@@ -118,14 +118,14 @@ export default function UserData() {
             disabled={isLoading}
           />
           <InputUserData
-            showName="housenumber"
+            showName="house_number"
             propertyName={"house_number"}
             value={userData.house_number}
             onChange={handleChange}
             disabled={isLoading}
           />
           <InputUserData
-            showName="postcode"
+            showName="post_code"
             propertyName={"post_code"}
             value={userData.post_code}
             onChange={handleChange}
