@@ -100,8 +100,7 @@ class LoginView(APIView):
             response.set_cookie(key='isAuthenticated', value=True,
                                 max_age=3600, secure=True, domain='127.0.0.1', path='/')
             response.data = {
-                'accessToken': token,
-                'expiresIn': '3600'
+                'data': "logged in",
             }
             return response
         except Exception as e:

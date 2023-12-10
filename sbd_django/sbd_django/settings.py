@@ -10,14 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
-from dotenv import load_dotenv
 from pathlib import Path
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -67,7 +68,7 @@ ROOT_URLCONF = "sbd_django.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "sbd_react/build")],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -136,9 +137,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "sbd_react/build/static"),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -147,16 +145,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-
+    "http://localhost:3000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-# Connection parms to provider portal
+#Connection parms to provider portal
 
-PROVIDER_PORTAL_KEY = os.getenv("PROVIDER_PORTAL_KEY")
+PROVIDER_PORTAL_KEY= os.getenv("PROVIDER_PORTAL_KEY")
 PROVIDER_PORTAL_ID = os.getenv("PROVIDER_PORTAL_ID")
 PROVIDER_POTAL_URL = "https://sbd.jkristof.de:8100/v1/provider/"
+
+PROVIDER_CERT_PATH = "./cert/provider.pem"
+

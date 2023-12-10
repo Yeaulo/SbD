@@ -13,8 +13,9 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
+
 import jwt
-from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL
+from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PORTAL_KEY, PROVIDER_POTAL_URL, PROVIDER_CERT_PATH
 
 
 def getId(request):
@@ -113,10 +114,10 @@ def getMeasurements(request, smartmeter_id):
             'Authorization': 'Bearer ' + str(PROVIDER_PORTAL_KEY)
         }
 
-        response = requests.get(url, params=params, headers=headers, verify=False)
+        response = requests.get(url, params=params, headers=headers, verify=PROVIDER_CERT_PATH)
+        
 
         jResponse = response.json()
-        
       
         with open("./json_schemas/measurements-schema-input.json") as s:
             schema = json.load(s)
