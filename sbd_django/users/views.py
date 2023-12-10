@@ -98,7 +98,7 @@ class LoginView(APIView):
                 'accessToken': token,
                 'expiresIn': '3600'
             }
-            return response
+            return response({'data': "Logged in successfully"})
         except Exception as e:
             return Response({'error': "Credentials invalid"}, status=400)
 
