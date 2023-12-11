@@ -31,7 +31,7 @@ Stromzähler Kundenportal
 # Projekt starten
 
 Um das Projekt starten zu lassen müssen noch vorbereitungen angepasst werden:
-**Datebank**
+**Datenbank**
 
 1. Navigieren sie zum Pfad: "sbd_django\MySQL"
 2. Der Docker muss erstellt werden mit: **docker-compose up --build**
@@ -84,8 +84,8 @@ Um das Projekt starten zu lassen müssen noch vorbereitungen angepasst werden:
 - **Automatisierte Tests für Ein-/ und Ausgabevalidierung**
   - Testet, ob die Eingabe und Ausgabe dem Json-Format entspricht.
   - Testet alle möglichen Eingaben und Ausgaben.
-``` python manage.py test```
- 
+  - Aufruf durch python manage.py test
 
 - **Automatisierte Tests für API**
   - Testet register und login Schnittstelle im Django-Backend.
+  - Aufruf durch python manage.py test
