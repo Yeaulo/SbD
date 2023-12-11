@@ -39,11 +39,12 @@ Um das Projekt starten zu lassen müssen noch vorbereitungen angepasst werden:
 4. Geben sie nacheinander zwei Befehle ins cmd ein:
    - python manage.py makemigrations provider_portal
    - python manage.py makemigrations users
-5. Damit ist die Datenbank fertig, jedoch bleiben sie auf den Pfad.
+   - python manage.py migrate
 
-**Webseite**
+**Applikation**
 
-1. Um die Webseite zu starten müssen sie den Befehl ausführen: python manage.py runserver
+1. Um das Backend zu starten muss der Befehel python manage.py runserver ausgeführt werden
+2. Innerhalbd des Ordners sbd_react wird durch npm start das Frontend gestartet
 
 ## Modulstruktur
 
