@@ -84,6 +84,8 @@ Um das Projekt starten zu lassen müssen noch vorbereitungen angepasst werden:
 - **Automatisierte Tests für Ein-/ und Ausgabevalidierung**
   - Testet, ob die Eingabe und Ausgabe dem Json-Format entspricht.
   - Testet alle möglichen Eingaben und Ausgaben.
+``` python manage.py test```
+ 
 
 - **Automatisierte Tests für API**
   - Testet register und login Schnittstelle im Django-Backend.
