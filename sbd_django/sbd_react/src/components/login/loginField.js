@@ -40,7 +40,7 @@ function Login({}) {
         setMessage("Login failed");
         return;
       }
-      console.log("Login response:", data);
+
       Cookies.set("isAuthenticated", true, {
         expires: 3600,
         path: "/",

@@ -4,7 +4,6 @@ import Table from "./Table";
 import "../../styles/ViewSmartmeter/MeasurmentsView.css";
 
 export default function MeasurementsView({ contractData, measurements }) {
-  console.log(contractData);
   return (
     <div className="measurements-container">
       <div className="measurements-important-values-outer">
