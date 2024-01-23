@@ -1,0 +1,153 @@
+.smartmeter-container {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+ 
+.measurements-container{
+    background-color: #D9D9D9;
+    width: 60%;
+    height: 90%;
+    border-radius: 4px;
+    margin-right: 5%;
+}
+.measurements-important-values-outer{
+    width: 90%;
+    height: 15%;
+    margin-left:5%;
+    margin-right:5%;
+    margin-top:5%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.measurements-important-values{
+    background-color: white;
+    height:100%;
+    width: 40%;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
+/*
+.smartmeter-heading {
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 90%;
+    height: 10%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+}
+.smartmeter-heading-right-title {
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+*/
+
+/* .measurements-table {
+    /* text-align: center;
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    height: 50%;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 16%; 
+    background-color: white;
+
+} */
+
+.measurements-table {
+    width: 90%;
+    height: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: white;
+    text-align: center;
+    
+}
+
+.smartmeter-contract-data{
+    text-align: center;
+    background-color: white;
+
+    width: 90%;
+    height: 20%;
+    border-radius: 10px;
+    margin:5%
+}
+
+.smartmeter-important-values {
+    text-align: center;
+    background-color: white;
+    position: relative;
+    width: 40%;
+    height: 20%;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 2%;
+
+}
+
+/* .smartmeter-header-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 1%;
+    text-align: left; 
+}
+.smartmeter-value-text {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 1%;
+    text-align: center;
+} */
+
+.smartmeter-view {
+    background-color: #D9D9D9;
+    width: 20%;
+    height: 90%;
+    position: relative;
+    font-size: bold;
+    border-radius: 4px;
+}
+
+.smartmeter-data {
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    height: 75%;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 30%;
+}
+
+
+.heading-smartmeter-data {
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 90%;
+    height: 10%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+} 
