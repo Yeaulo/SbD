@@ -24,7 +24,7 @@ export default function ViewSmartmeter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = "http://localhost:8000/api/smartmeter/";
+        const url = "https://dhbwsbd.pythonanywhere.com/api/smartmeter/";
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
@@ -61,7 +61,9 @@ export default function ViewSmartmeter() {
     const fetchData = async () => {
       try {
         const url =
-          "http://localhost:8000/api/measurements/" + smartmeter_id + "/";
+          "https://dhbwsbd.pythonanywhere.com/measurements/" +
+          smartmeter_id +
+          "/";
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
@@ -83,7 +85,9 @@ export default function ViewSmartmeter() {
     const fetchData = async () => {
       try {
         const url =
-          "http://localhost:8000/api/contractData/" + smartmeter_id + "/";
+          "https://dhbwsbd.pythonanywhere.com/api/contractData/" +
+          smartmeter_id +
+          "/";
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",

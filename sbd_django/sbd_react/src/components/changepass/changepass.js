@@ -10,7 +10,7 @@ function ChangePassword() {
   const [error, setError] = useState("");
 
   async function handleChangePassword() {
-    const apiUrl = "http://localhost:8000/api/change-password";
+    const apiUrl = "https://dhbwsbd.pythonanywhere.com/api/change-password";
 
     try {
       const response = await fetch(apiUrl, {

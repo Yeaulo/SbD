@@ -38,12 +38,15 @@ function RegisterField({ setShowNavbar }) {
       let newCredentials = { ...credentials };
       newCredentials["post_code"] = parseInt(newCredentials["post_code"]);
       newCredentials["house_number"] = parseInt(newCredentials["house_number"]);
-      const response = await fetch("http://localhost:8000/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(newCredentials),
-      });
+      const response = await fetch(
+        "https://dhbwsbd.pythonanywhere.com/api/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(newCredentials),
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();

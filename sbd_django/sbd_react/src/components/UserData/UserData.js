@@ -23,7 +23,7 @@ export default function UserData() {
 
     const fetchData = async () => {
       try {
-        const url = "http://localhost:8000/api/customerData/";
+        const url = "https://dhbwsbd.pythonanywhere.com/api/customerData/";
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
@@ -65,7 +65,7 @@ export default function UserData() {
       newUserData["house_number"] = parseInt(newUserData["house_number"]);
       try {
         const response = await fetch(
-          "http://localhost:8000/api/customerData/",
+          "https://dhbwsbd.pythonanywhere.com/api/customerData/",
           {
             method: "POST",
             credentials: "include",

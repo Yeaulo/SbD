@@ -23,15 +23,18 @@ function Login({}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("access_token")}`,
-        },
-        credentials: "include",
-        body: JSON.stringify(credentials),
-      });
+      const response = await fetch(
+        "https://dhbwsbd.pythonanywhere.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
+          },
+          credentials: "include",
+          body: JSON.stringify(credentials),
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         setMessage("Login failed");

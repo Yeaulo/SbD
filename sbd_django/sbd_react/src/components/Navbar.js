@@ -8,11 +8,14 @@ export default function Navbar() {
   async function logout() {
     localStorage.clear();
 
-    const response = await fetch("http://localhost:8000/api/logout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
+    const response = await fetch(
+      "https://dhbwsbd.pythonanywhere.com/api/logout",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      }
+    );
     const data = await response.json();
     navigate("/login");
   }
@@ -28,7 +31,9 @@ export default function Navbar() {
             <Link
               to="/customerData"
               className={
-                path.pathname === "/customerData" ? "active-nav-item" : "nav-item"
+                path.pathname === "/customerData"
+                  ? "active-nav-item"
+                  : "nav-item"
               }
             >
               Customer data
@@ -58,9 +63,9 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="logout-button-div">
-            <button className={"logout-button"} onClick={() => logout()}>
-              Logout
-            </button>
+          <button className={"logout-button"} onClick={() => logout()}>
+            Logout
+          </button>
         </div>
       </div>
     </nav>
