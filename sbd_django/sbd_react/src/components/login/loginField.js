@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../styles/login/login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Login({}) {
   const [credentials, setCredentials] = useState({
@@ -24,7 +25,10 @@ function Login({}) {
     try {
       const response = await fetch("http://localhost:8000/api/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("access_token")}`,
+        },
         credentials: "include",
         body: JSON.stringify(credentials),
       });
@@ -34,6 +38,15 @@ function Login({}) {
         return;
       }
       console.log("Login response:", data);
+      Cookies.set("isAuthenticated", true, {
+        expires: 3600,
+        path: "/",
+        sameSite: "None",
+      });
+      Cookies.set("access_token", data.access_token, {
+        expires: 3600,
+        path: "/",
+      });
       navigate("/customerData");
       setMessage("");
     } catch (error) {

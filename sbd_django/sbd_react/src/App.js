@@ -12,12 +12,16 @@ import PrivateRoutes from "./components/utils/PrivateRoutes";
 function App() {
   const location = useLocation();
   const pathWithoutSlash = location.pathname.substring(1);
-
+  console.log(pathWithoutSlash);
   const showNavbarPaths = [
     "customerData",
     "contracts",
     "smartmeter",
     "change-password",
+    "customerData/",
+    "contracts/",
+    "smartmeter/",
+    "change-password/",
   ];
 
   const showNavbar = showNavbarPaths.includes(pathWithoutSlash);

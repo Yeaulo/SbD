@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../styles/ViewSmartmeter/smartmeter.css";
 import MeasurementsView from "./MeasurmentsView";
 // import Table from "./Table";
+import Cookies from "js-cookie";
 
 // import MeasurementsView from "./MeasurmentsView";
 import SmartmeterDataViews from "./SmartmeterDataView";
@@ -29,6 +30,7 @@ export default function ViewSmartmeter() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
         const data = await response.json();
@@ -65,6 +67,7 @@ export default function ViewSmartmeter() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
         const data = await response.json();
@@ -86,6 +89,7 @@ export default function ViewSmartmeter() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
         const data = await response.json();

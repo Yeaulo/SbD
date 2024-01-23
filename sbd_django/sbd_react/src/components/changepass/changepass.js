@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/ChangePassword/changepass.css";
+import Cookies from "js-cookie";
 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -16,6 +17,7 @@ function ChangePassword() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("access_token")}`,
         },
         credentials: "include",
         body: JSON.stringify({

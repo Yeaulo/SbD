@@ -22,5 +22,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("provider_portal.urls")),
     path("api/", include("users.urls")),
-    path("", views.index, name="index")
+    path("", views.index, name="index"),
+    path("login/", views.index, name="index"),
+    path("register/", views.index, name="index"),
+    path("customerData/", views.index, name="index"),
+    path("smartmeter/", views.index, name="index"),
+    path("contracts/", views.index, name="index"),
+     path("change-password/", views.index, name="index")
 ]

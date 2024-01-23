@@ -18,7 +18,15 @@ export default function Contracts() {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/smartmeter/");
+        const url = "http://localhost:8000/api/smartmeter/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
+          },
+        });
         const data = await response.json();
         let smartmeterList = [];
         data.data.map((item, index) => {
@@ -43,9 +51,16 @@ export default function Contracts() {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/contractData/" + smartmeter_id + "/"
-        );
+        const url =
+          "http://localhost:8000/api/contractData/" + smartmeter_id + "/";
+        const response = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
+          },
+        });
         const data = await response.json();
         setContractData(data.data);
       } catch (error) {

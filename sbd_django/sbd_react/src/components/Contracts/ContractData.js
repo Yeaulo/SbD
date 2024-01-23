@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../styles/Contracts/contracts.css";
 import DropDown from "../utils/DropDown";
 import ContractDataRow from "./ContractDataRow";
+import Cookies from "js-cookie";
 
 export default function Contracts() {
   const [smartmeter, setSmartmeter] = useState([]);
@@ -24,6 +25,7 @@ export default function Contracts() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
         const data = await response.json();
@@ -57,6 +59,7 @@ export default function Contracts() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
         const data = await response.json();

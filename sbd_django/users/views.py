@@ -16,7 +16,7 @@ import jwt
 import datetime
 
 def getId(request):
-    cookie_value = request.COOKIES.get('access_token',None)
+    cookie_value = request.headers.get('Authorization').split()[1]
 
     if not cookie_value:
         raise AuthenticationFailed('Unauthenticated')
@@ -92,13 +92,15 @@ class LoginView(APIView):
             response = Response()
 
         
-            response.set_cookie(key='access_token', value=token,  max_age=3600, secure=True, httponly=True, domain='localhost', path='/')
-            response.set_cookie(key='isAuthenticated', value=True,  max_age=3600, secure=True, domain='localhost', path='/')
+            response.set_cookie(key='access_token', value=token,  max_age=3600,   path='/login')
+            response.set_cookie(key='isAuthenticated', value=True,  max_age=3600,  path='/login')
             response.data = {
                 'data': "logged in",
+                "access_token": token,
             }
             return response
         except Exception as e:
+            print(e)
             return Response({'error': "Credentials invalid"}, status=400)
 
 class LogoutView(APIView):
@@ -116,6 +118,7 @@ class ChangePasswordView(APIView):
     def post(self, request):
         try:
             if not validate_json(request.data, "change-password-schema-input"):
+                print("hier")
                 return Response({"error": "Invalid input"}, status=500)
             
             customer_id = getId(request)

@@ -19,7 +19,7 @@ from sbd_django.settings import JWT_SIGNING_KEY, PROVIDER_PORTAL_ID, PROVIDER_PO
 
 
 def getId(request):
-    cookie_value = request.COOKIES.get('access_token',None)
+    cookie_value = request.headers.get('Authorization').split()[1]
 
     if not cookie_value:
         raise AuthenticationFailed('Unauthenticated')
@@ -160,7 +160,9 @@ def getMeasurements(request, smartmeter_id):
 
 class CustomersView(APIView):
     def get(self, request):
+        print(request)
         customer_data = Customers.objects.get(customer_id=getId(request))
+       
         if not validate_json(customer_data.toJson(), "customerData-schema-output"):
             return Response({"error": "Internal error"}, status=500)
 

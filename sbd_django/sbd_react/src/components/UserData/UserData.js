@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputUserData from "./InputUserData";
 import "../../styles/UserData/userdata.css";
+import Cookies from "js-cookie";
 
 let initialUserData;
 const _ = require("lodash");
@@ -28,6 +29,7 @@ export default function UserData() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
           },
         });
 
@@ -69,6 +71,7 @@ export default function UserData() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("access_token")}`,
             },
             body: JSON.stringify(newUserData),
           }
