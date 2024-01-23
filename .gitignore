@@ -5,3 +5,7 @@ __pycache__/
 *.pyc
 sbd_django/sbd_django/__pycache__/urls.cpython-310.pyc
 *.pyc
+
+
+
+./node_modules
