@@ -156,8 +156,8 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Connection parms to provider portal
 
-PROVIDER_PORTAL_KEY = os.getenv("PROVIDER_PORTAL_KEY")
-PROVIDER_PORTAL_ID = os.getenv("PROVIDER_PORTAL_ID")
+PROVIDER_PORTAL_KEY = "19b92c3d-6a36-4b3e-b5fa-038dd0b9bc91"
+PROVIDER_PORTAL_ID = "0cb09f61-c3b9-44d0-b3fc-cd917430660d"
 PROVIDER_POTAL_URL = "https://sbd.jkristof.de:8100/v1/provider/"
 
 PROVIDER_CERT_PATH = "./cert/provider.pem"

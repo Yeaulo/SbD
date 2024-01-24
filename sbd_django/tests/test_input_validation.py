@@ -10,7 +10,7 @@ from utils.input_validation import validate_input
 
 
 def validate_schema(j_data, schema_name):
-    with open("./json_schemas/"+schema_name+".json") as s:
+    with open("/home/dhbwsbd/SbD/sbd_django/json_schemas/"+schema_name+".json") as s:
         schema = json.load(s)
     try:
         validate(j_data, schema)

@@ -61,7 +61,7 @@ export default function ViewSmartmeter() {
     const fetchData = async () => {
       try {
         const url =
-          "https://dhbwsbd.pythonanywhere.com/measurements/" +
+          "https://dhbwsbd.pythonanywhere.com/api/measurements/" +
           smartmeter_id +
           "/";
         const response = await fetch(url, {

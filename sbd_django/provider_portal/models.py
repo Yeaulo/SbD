@@ -70,7 +70,7 @@ def pre_create(sender, instance, **kwargs):
     try:
         response = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
         response_data = response.json()
-        with open("./json_schemas/smartmeter-create-schema.json") as s:
+        with open("/home/dhbwsbd/SbD/sbd_django/json_schemas/smartmeter-create-schema.json") as s:
             schema = json.load(s)
         validate(response_data, schema)
         instance.provider_portal_UID = response_data.get("meterUID")

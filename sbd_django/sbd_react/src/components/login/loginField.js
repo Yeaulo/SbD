@@ -44,7 +44,6 @@ function Login({}) {
       Cookies.set("isAuthenticated", true, {
         expires: 3600,
         path: "/",
-        sameSite: "None",
       });
       Cookies.set("access_token", data.access_token, {
         expires: 3600,

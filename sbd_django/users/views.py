@@ -29,7 +29,7 @@ def getId(request):
     return payload["id"]
 
 def validate_json(j_data, schema_name):
-    with open("./json_schemas/"+schema_name+".json") as s:
+    with open("/home/dhbwsbd/SbD/sbd_django/json_schemas/"+schema_name+".json") as s:
         schema = json.load(s)
     try:
         validate(j_data, schema)
@@ -92,8 +92,8 @@ class LoginView(APIView):
             response = Response()
 
         
-            response.set_cookie(key='access_token', value=token,  max_age=3600,   path='/login')
-            response.set_cookie(key='isAuthenticated', value=True,  max_age=3600,  path='/login')
+            response.set_cookie(key='access_token', value=token,  max_age=3600,   path='/')
+            response.set_cookie(key='isAuthenticated', value=True,  max_age=3600,  path='/')
             response.data = {
                 'data': "logged in",
                 "access_token": token,

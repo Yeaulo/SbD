@@ -33,7 +33,7 @@ def getId(request):
 
 
 def validate_json(j_data, schema_name):
-    with open("./json_schemas/"+schema_name+".json") as s:
+    with open("/home/dhbwsbd/SbD/sbd_django/json_schemas/"+schema_name+".json") as s:
         schema = json.load(s)
     try:
         validate(j_data, schema)
@@ -119,7 +119,7 @@ def getMeasurements(request, smartmeter_id):
 
         jResponse = response.json()
       
-        with open("./json_schemas/measurements-schema-input.json") as s:
+        with open("/home/dhbwsbd/SbD/sbd_django/json_schemas/measurements-schema-input.json") as s:
             schema = json.load(s)
         
         try:
